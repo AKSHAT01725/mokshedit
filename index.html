@@ -326,6 +326,8 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
 
 /* ── SERVICE DETAIL SUB-SECTIONS ── */
 .service-detail { margin-top:64px; padding-top:56px; border-top:1px solid var(--line); }
+.service-eyebrow { display:inline-flex; align-items:center; gap:7px; background:var(--gold-dim); border:1px solid rgba(245,166,35,0.25); border-radius:30px; padding:5px 14px; font-size:11px; font-weight:700; letter-spacing:1.5px; color:var(--gold); text-transform:uppercase; margin-bottom:14px; }
+.service-eyebrow i { font-size:10px; }
 .service-detail-head h3 { font-family:'Space Grotesk'; font-size:clamp(21px,2.6vw,28px); font-weight:700; color:var(--ice); margin-bottom:12px; }
 .service-detail-head h3 em { font-style:normal; color:var(--gold); }
 .service-detail-head p { font-size:14.5px; color:var(--mute); line-height:1.7; max-width:780px; margin-bottom:26px; }
@@ -357,13 +359,30 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
 .info-note i { color:var(--gold); font-size:15px; margin-top:1px; }
 .info-note strong { color:var(--gold); }
 
-.fare-table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:var(--navy-3); }
+.fare-table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:var(--navy-3); box-shadow:0 16px 40px rgba(0,0,0,0.25); }
 .fare-table { width:100%; border-collapse:collapse; min-width:600px; }
-.fare-table th { background:var(--gold); color:#1a0f00; text-align:left; font-size:11px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; padding:14px 18px; white-space:nowrap; }
-.fare-table td { padding:13px 18px; font-size:13.5px; color:rgba(238,242,248,0.85); border-top:1px solid var(--line); white-space:nowrap; }
-.fare-table tr:hover td { background:rgba(255,255,255,0.025); }
+.fare-table th { background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:#1a0f00; text-align:left; font-size:11px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; padding:15px 18px; white-space:nowrap; }
+.fare-table td { padding:14px 18px; font-size:13.5px; color:rgba(238,242,248,0.85); border-top:1px solid var(--line); white-space:nowrap; }
+.fare-table tbody tr:nth-child(even) td { background:rgba(255,255,255,0.015); }
+.fare-table tr:hover td { background:rgba(245,166,35,0.06); }
 .fare-table td.fare-amt { color:var(--gold); font-weight:700; font-family:'Space Grotesk'; }
 .fare-table td.fare-dist { color:var(--teal); }
+.fare-table td:first-child { color:var(--ice); font-weight:600; }
+
+/* Fare tables become stacked cards on mobile — every column fits, no horizontal sliding */
+@media(max-width:700px){
+  .fare-table-wrap { overflow:visible; border:none; background:transparent; border-radius:0; box-shadow:none; }
+  .fare-table { min-width:0; width:100%; border-collapse:separate; border-spacing:0 14px; }
+  .fare-table thead { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+  .fare-table tbody { display:block; }
+  .fare-table tbody tr { display:block; background:var(--navy-3); border:1px solid var(--line); border-radius:14px; padding:2px 18px; box-shadow:0 10px 26px rgba(0,0,0,0.22); }
+  .fare-table tbody tr:nth-child(even) td { background:transparent; }
+  .fare-table tr:hover td { background:transparent; }
+  .fare-table td { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:11px 0; border-top:1px solid var(--line); font-size:13px; white-space:normal; text-align:right; }
+  .fare-table td:first-child { display:block; text-align:left; border-top:none; font-family:'Space Grotesk'; font-weight:700; font-size:15.5px; color:var(--gold); padding:15px 0 12px; }
+  .fare-table td::before { content:attr(data-label); font-size:10.5px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--mute); text-align:left; }
+  .fare-table td:first-child::before { content:none; }
+}
 
 .vehicle-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
 .vehicle-card { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:26px; text-align:center; transition:var(--transition); }
@@ -934,6 +953,7 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
   <!-- ONE WAY CAB SERVICE -->
   <div class="service-detail">
     <div class="service-detail-head">
+      <div class="service-eyebrow"><i class="fas fa-route"></i>One-Way Travel</div>
       <h3>One Way Cab <em>Service</em></h3>
       <p>Travel from Ahmedabad to your destination with a convenient one-way taxi. One-way cab booking is ideal when you do not require the vehicle for the return journey. Choose from Sedan, Ertiga or Innova Crysta depending on your travel requirements and group size.</p>
     </div>
@@ -973,6 +993,7 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
   <!-- AIRPORT TAXI SERVICE -->
   <div class="service-detail">
     <div class="service-detail-head">
+      <div class="service-eyebrow"><i class="fas fa-plane-departure"></i>Airport Transfers</div>
       <h3>Ahmedabad Airport <em>Taxi Service</em></h3>
       <p>Moksh Travel provides convenient <strong>Ahmedabad airport taxi service</strong> for pickup and drop-off between Sardar Vallabhbhai Patel International Airport (AMD) and different parts of Ahmedabad. Whether you have an early morning departure, late-night arrival or a scheduled business trip, you can pre-book your cab for a smoother airport transfer.</p>
     </div>
@@ -1001,6 +1022,7 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
   <!-- OUTSTATION TAXI SERVICE -->
   <div class="service-detail">
     <div class="service-detail-head">
+      <div class="service-eyebrow"><i class="fas fa-signs-post"></i>Outstation Trips</div>
       <h3>Outstation Taxi <em>Service from Ahmedabad</em></h3>
       <p>Moksh Travel provides outstation taxi services for short and long-distance travel. Whether you are travelling to Gujarat, Rajasthan, Maharashtra or Madhya Pradesh, you can select a vehicle according to your journey and passenger requirements. Our outstation taxi service is suitable for:</p>
     </div>
@@ -1019,6 +1041,7 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
   <!-- LOCAL TAXI SERVICE + PACKAGE TABLE -->
   <div class="service-detail">
     <div class="service-detail-head">
+      <div class="service-eyebrow"><i class="fas fa-city"></i>City &amp; Local</div>
       <h3>Ahmedabad Local <em>Taxi Service</em></h3>
       <p>Need a cab for local sightseeing, meetings, shopping, events or multiple stops within Ahmedabad? Our local cab packages are designed for flexible city travel.</p>
     </div>
@@ -1028,12 +1051,12 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
           <tr><th>Package</th><th>Sedan</th><th>Ertiga</th><th>Innova Crysta</th></tr>
         </thead>
         <tbody>
-          <tr><td>4 Hours / 40 KM</td><td class="fare-amt">₹1,500</td><td class="fare-amt">₹2,200</td><td class="fare-amt">₹3,000</td></tr>
-          <tr><td>8 Hours / 80 KM</td><td class="fare-amt">₹2,000</td><td class="fare-amt">₹2,800</td><td class="fare-amt">₹4,000</td></tr>
-          <tr><td>12 Hours / 120 KM</td><td class="fare-amt">₹2,800</td><td class="fare-amt">₹3,600</td><td class="fare-amt">₹5,000</td></tr>
-          <tr><td>Extra KM</td><td class="fare-amt">₹11</td><td class="fare-amt">₹15</td><td class="fare-amt">₹20</td></tr>
-          <tr><td>Extra Hour</td><td class="fare-amt">₹180</td><td class="fare-amt">₹200</td><td class="fare-amt">₹250</td></tr>
-          <tr><td>Parking</td><td>Extra</td><td>Extra</td><td>Extra</td></tr>
+          <tr><td>4 Hours / 40 KM</td><td class="fare-amt" data-label="Sedan">₹1,500</td><td class="fare-amt" data-label="Ertiga">₹2,200</td><td class="fare-amt" data-label="Innova Crysta">₹3,000</td></tr>
+          <tr><td>8 Hours / 80 KM</td><td class="fare-amt" data-label="Sedan">₹2,000</td><td class="fare-amt" data-label="Ertiga">₹2,800</td><td class="fare-amt" data-label="Innova Crysta">₹4,000</td></tr>
+          <tr><td>12 Hours / 120 KM</td><td class="fare-amt" data-label="Sedan">₹2,800</td><td class="fare-amt" data-label="Ertiga">₹3,600</td><td class="fare-amt" data-label="Innova Crysta">₹5,000</td></tr>
+          <tr><td>Extra KM</td><td class="fare-amt" data-label="Sedan">₹11</td><td class="fare-amt" data-label="Ertiga">₹15</td><td class="fare-amt" data-label="Innova Crysta">₹20</td></tr>
+          <tr><td>Extra Hour</td><td class="fare-amt" data-label="Sedan">₹180</td><td class="fare-amt" data-label="Ertiga">₹200</td><td class="fare-amt" data-label="Innova Crysta">₹250</td></tr>
+          <tr><td>Parking</td><td data-label="Sedan">Extra</td><td data-label="Ertiga">Extra</td><td data-label="Innova Crysta">Extra</td></tr>
         </tbody>
       </table>
     </div>
@@ -1043,6 +1066,7 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
   <!-- ONE WAY TAXI FARE TABLE -->
   <div class="service-detail">
     <div class="service-detail-head">
+      <div class="service-eyebrow"><i class="fas fa-tags"></i>Fare Chart</div>
       <h3>Ahmedabad One Way <em>Taxi Fare</em></h3>
       <p>Below are selected estimated one-way fares from Ahmedabad. Prices vary depending on the travel date, vehicle availability, route, pickup location and other applicable charges.</p>
     </div>
@@ -1052,17 +1076,17 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
           <tr><th>Destination</th><th>Approx. Distance</th><th>Sedan</th><th>Ertiga</th><th>Innova Crysta</th></tr>
         </thead>
         <tbody>
-          <tr><td>Surat</td><td class="fare-dist">260 KM</td><td class="fare-amt">₹3,400</td><td class="fare-amt">₹4,000</td><td class="fare-amt">₹8,500</td></tr>
-          <tr><td>Rajkot</td><td class="fare-dist">215 KM</td><td class="fare-amt">₹2,400</td><td class="fare-amt">₹3,000</td><td class="fare-amt">₹8,600</td></tr>
-          <tr><td>Udaipur</td><td class="fare-dist">269 KM</td><td class="fare-amt">₹3,400</td><td class="fare-amt">₹4,000</td><td class="fare-amt">₹9,500</td></tr>
-          <tr><td>Gandhinagar</td><td class="fare-dist">26 KM</td><td class="fare-amt">₹800</td><td class="fare-amt">₹1,100</td><td class="fare-amt">₹2,200</td></tr>
-          <tr><td>Dwarka</td><td class="fare-dist">448 KM</td><td class="fare-amt">₹7,000</td><td class="fare-amt">₹8,300</td><td class="fare-amt">₹14,920</td></tr>
-          <tr><td>Somnath</td><td class="fare-dist">424 KM</td><td class="fare-amt">₹6,784</td><td class="fare-amt">₹8,480</td><td class="fare-amt">₹13,960</td></tr>
-          <tr><td>Mumbai</td><td class="fare-dist">533 KM</td><td class="fare-amt">₹7,528</td><td class="fare-amt">₹8,660</td><td class="fare-amt">₹18,500</td></tr>
-          <tr><td>Mount Abu</td><td class="fare-dist">229 KM</td><td class="fare-amt">₹3,664</td><td class="fare-amt">₹4,580</td><td class="fare-amt">₹9,160</td></tr>
-          <tr><td>Jaipur</td><td class="fare-dist">659 KM</td><td class="fare-amt">₹11,862</td><td class="fare-amt">₹16,475</td><td class="fare-amt">₹26,360</td></tr>
-          <tr><td>Bhuj</td><td class="fare-dist">334 KM</td><td class="fare-amt">₹4,500</td><td class="fare-amt">₹5,580</td><td class="fare-amt">₹13,360</td></tr>
-          <tr><td>Indore</td><td class="fare-dist">388 KM</td><td class="fare-amt">₹6,208</td><td class="fare-amt">₹7,760</td><td class="fare-amt">₹15,520</td></tr>
+          <tr><td>Surat</td><td class="fare-dist" data-label="Approx. Distance">260 KM</td><td class="fare-amt" data-label="Sedan">₹3,400</td><td class="fare-amt" data-label="Ertiga">₹4,000</td><td class="fare-amt" data-label="Innova Crysta">₹8,500</td></tr>
+          <tr><td>Rajkot</td><td class="fare-dist" data-label="Approx. Distance">215 KM</td><td class="fare-amt" data-label="Sedan">₹2,400</td><td class="fare-amt" data-label="Ertiga">₹3,000</td><td class="fare-amt" data-label="Innova Crysta">₹8,600</td></tr>
+          <tr><td>Udaipur</td><td class="fare-dist" data-label="Approx. Distance">269 KM</td><td class="fare-amt" data-label="Sedan">₹3,400</td><td class="fare-amt" data-label="Ertiga">₹4,000</td><td class="fare-amt" data-label="Innova Crysta">₹9,500</td></tr>
+          <tr><td>Gandhinagar</td><td class="fare-dist" data-label="Approx. Distance">26 KM</td><td class="fare-amt" data-label="Sedan">₹800</td><td class="fare-amt" data-label="Ertiga">₹1,100</td><td class="fare-amt" data-label="Innova Crysta">₹2,200</td></tr>
+          <tr><td>Dwarka</td><td class="fare-dist" data-label="Approx. Distance">448 KM</td><td class="fare-amt" data-label="Sedan">₹7,000</td><td class="fare-amt" data-label="Ertiga">₹8,300</td><td class="fare-amt" data-label="Innova Crysta">₹14,920</td></tr>
+          <tr><td>Somnath</td><td class="fare-dist" data-label="Approx. Distance">424 KM</td><td class="fare-amt" data-label="Sedan">₹6,784</td><td class="fare-amt" data-label="Ertiga">₹8,480</td><td class="fare-amt" data-label="Innova Crysta">₹13,960</td></tr>
+          <tr><td>Mumbai</td><td class="fare-dist" data-label="Approx. Distance">533 KM</td><td class="fare-amt" data-label="Sedan">₹7,528</td><td class="fare-amt" data-label="Ertiga">₹8,660</td><td class="fare-amt" data-label="Innova Crysta">₹18,500</td></tr>
+          <tr><td>Mount Abu</td><td class="fare-dist" data-label="Approx. Distance">229 KM</td><td class="fare-amt" data-label="Sedan">₹3,664</td><td class="fare-amt" data-label="Ertiga">₹4,580</td><td class="fare-amt" data-label="Innova Crysta">₹9,160</td></tr>
+          <tr><td>Jaipur</td><td class="fare-dist" data-label="Approx. Distance">659 KM</td><td class="fare-amt" data-label="Sedan">₹11,862</td><td class="fare-amt" data-label="Ertiga">₹16,475</td><td class="fare-amt" data-label="Innova Crysta">₹26,360</td></tr>
+          <tr><td>Bhuj</td><td class="fare-dist" data-label="Approx. Distance">334 KM</td><td class="fare-amt" data-label="Sedan">₹4,500</td><td class="fare-amt" data-label="Ertiga">₹5,580</td><td class="fare-amt" data-label="Innova Crysta">₹13,360</td></tr>
+          <tr><td>Indore</td><td class="fare-dist" data-label="Approx. Distance">388 KM</td><td class="fare-amt" data-label="Sedan">₹6,208</td><td class="fare-amt" data-label="Ertiga">₹7,760</td><td class="fare-amt" data-label="Innova Crysta">₹15,520</td></tr>
         </tbody>
       </table>
     </div>
@@ -1072,6 +1096,7 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
   <!-- POPULAR OUTSTATION ROUTES -->
   <div class="service-detail">
     <div class="service-detail-head">
+      <div class="service-eyebrow"><i class="fas fa-map"></i>Popular Routes</div>
       <h3>Popular Outstation <em>Routes &amp; Starting Fares</em></h3>
       <p>Moksh Travel provides taxi services on a wide range of intercity routes. Starting fares are indicative and subject to vehicle type, travel date, route and applicable charges.</p>
     </div>
@@ -1081,39 +1106,39 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
           <tr><th>Route</th><th>Approx. Distance</th><th>Starting Fare</th></tr>
         </thead>
         <tbody>
-          <tr><td>Ahmedabad – Dhoraji</td><td class="fare-dist">320 KM</td><td class="fare-amt">₹5,000</td></tr>
-          <tr><td>Rajkot – Dhoraji</td><td class="fare-dist">90 KM</td><td class="fare-amt">₹2,700</td></tr>
-          <tr><td>Rajkot – Gondal</td><td class="fare-dist">40 KM</td><td class="fare-amt">₹1,700</td></tr>
-          <tr><td>Somnath – Porbandar</td><td class="fare-dist">132 KM</td><td class="fare-amt">₹4,000</td></tr>
-          <tr><td>Diu – Somnath</td><td class="fare-dist">95 KM</td><td class="fare-amt">₹3,000</td></tr>
-          <tr><td>Dwarka – Somnath</td><td class="fare-dist">270 KM</td><td class="fare-amt">₹6,500</td></tr>
-          <tr><td>Vadodara – Kevadiya</td><td class="fare-dist">90 KM</td><td class="fare-amt">₹2,700</td></tr>
-          <tr><td>Vadodara – Statue of Unity</td><td class="fare-dist">90 KM</td><td class="fare-amt">₹2,700</td></tr>
-          <tr><td>Vadodara – Pavagadh</td><td class="fare-dist">40 KM</td><td class="fare-amt">₹1,500</td></tr>
-          <tr><td>Vadodara – Halol</td><td class="fare-dist">40 KM</td><td class="fare-amt">₹1,500</td></tr>
-          <tr><td>Dahej – Bharuch</td><td class="fare-dist">55 KM</td><td class="fare-amt">₹1,700</td></tr>
-          <tr><td>Bharuch – Vadodara</td><td class="fare-dist">80 KM</td><td class="fare-amt">₹2,000</td></tr>
-          <tr><td>Surat – Bharuch</td><td class="fare-dist">75 KM</td><td class="fare-amt">₹1,700</td></tr>
-          <tr><td>Surat – Mumbai</td><td class="fare-dist">295 KM</td><td class="fare-amt">₹4,000</td></tr>
-          <tr><td>Mumbai – Vapi</td><td class="fare-dist">180 KM</td><td class="fare-amt">₹3,500</td></tr>
-          <tr><td>Gandhidham – Bhuj</td><td class="fare-dist">50 KM</td><td class="fare-amt">₹1,700</td></tr>
-          <tr><td>Mundra – Gandhidham</td><td class="fare-dist">55 KM</td><td class="fare-amt">₹2,000</td></tr>
-          <tr><td>Mount Abu – Rajkot</td><td class="fare-dist">402 KM</td><td class="fare-amt">₹7,000</td></tr>
-          <tr><td>Ahmedabad – Ramdevra</td><td class="fare-dist">590 KM</td><td class="fare-amt">₹12,500</td></tr>
-          <tr><td>Ahmedabad – Jalore</td><td class="fare-dist">325 KM</td><td class="fare-amt">₹5,300</td></tr>
-          <tr><td>Ahmedabad – Siwana</td><td class="fare-dist">407 KM</td><td class="fare-amt">₹8,000</td></tr>
-          <tr><td>Ahmedabad – Balotra</td><td class="fare-dist">395 KM</td><td class="fare-amt">₹7,500</td></tr>
-          <tr><td>Ahmedabad – Balesar</td><td class="fare-dist">475 KM</td><td class="fare-amt">₹9,000</td></tr>
-          <tr><td>Ahmedabad – Nagaur</td><td class="fare-dist">590 KM</td><td class="fare-amt">₹12,500</td></tr>
-          <tr><td>Ahmedabad – Khatu Shyam</td><td class="fare-dist">740 KM</td><td class="fare-amt">₹12,500</td></tr>
-          <tr><td>Ahmedabad – Pushkar</td><td class="fare-dist">551 KM</td><td class="fare-amt">₹9,500</td></tr>
-          <tr><td>Ahmedabad – Kumbhalgarh</td><td class="fare-dist">335 KM</td><td class="fare-amt">₹7,300</td></tr>
-          <tr><td>Ahmedabad – Beawar</td><td class="fare-dist">486 KM</td><td class="fare-amt">₹8,500</td></tr>
-          <tr><td>Ahmedabad – Bikaner</td><td class="fare-dist">680 KM</td><td class="fare-amt">₹15,200</td></tr>
-          <tr><td>Ahmedabad – Sri Ganganagar</td><td class="fare-dist">910 KM</td><td class="fare-amt">₹18,500</td></tr>
-          <tr><td>Ahmedabad – Jhabua</td><td class="fare-dist">260 KM</td><td class="fare-amt">₹6,500</td></tr>
-          <tr><td>Ahmedabad – Thandla</td><td class="fare-dist">280 KM</td><td class="fare-amt">₹7,000</td></tr>
-          <tr><td>Ahmedabad – Sojat</td><td class="fare-dist">430 KM</td><td class="fare-amt">₹7,500</td></tr>
+          <tr><td>Ahmedabad – Dhoraji</td><td class="fare-dist" data-label="Approx. Distance">320 KM</td><td class="fare-amt" data-label="Starting Fare">₹5,000</td></tr>
+          <tr><td>Rajkot – Dhoraji</td><td class="fare-dist" data-label="Approx. Distance">90 KM</td><td class="fare-amt" data-label="Starting Fare">₹2,700</td></tr>
+          <tr><td>Rajkot – Gondal</td><td class="fare-dist" data-label="Approx. Distance">40 KM</td><td class="fare-amt" data-label="Starting Fare">₹1,700</td></tr>
+          <tr><td>Somnath – Porbandar</td><td class="fare-dist" data-label="Approx. Distance">132 KM</td><td class="fare-amt" data-label="Starting Fare">₹4,000</td></tr>
+          <tr><td>Diu – Somnath</td><td class="fare-dist" data-label="Approx. Distance">95 KM</td><td class="fare-amt" data-label="Starting Fare">₹3,000</td></tr>
+          <tr><td>Dwarka – Somnath</td><td class="fare-dist" data-label="Approx. Distance">270 KM</td><td class="fare-amt" data-label="Starting Fare">₹6,500</td></tr>
+          <tr><td>Vadodara – Kevadiya</td><td class="fare-dist" data-label="Approx. Distance">90 KM</td><td class="fare-amt" data-label="Starting Fare">₹2,700</td></tr>
+          <tr><td>Vadodara – Statue of Unity</td><td class="fare-dist" data-label="Approx. Distance">90 KM</td><td class="fare-amt" data-label="Starting Fare">₹2,700</td></tr>
+          <tr><td>Vadodara – Pavagadh</td><td class="fare-dist" data-label="Approx. Distance">40 KM</td><td class="fare-amt" data-label="Starting Fare">₹1,500</td></tr>
+          <tr><td>Vadodara – Halol</td><td class="fare-dist" data-label="Approx. Distance">40 KM</td><td class="fare-amt" data-label="Starting Fare">₹1,500</td></tr>
+          <tr><td>Dahej – Bharuch</td><td class="fare-dist" data-label="Approx. Distance">55 KM</td><td class="fare-amt" data-label="Starting Fare">₹1,700</td></tr>
+          <tr><td>Bharuch – Vadodara</td><td class="fare-dist" data-label="Approx. Distance">80 KM</td><td class="fare-amt" data-label="Starting Fare">₹2,000</td></tr>
+          <tr><td>Surat – Bharuch</td><td class="fare-dist" data-label="Approx. Distance">75 KM</td><td class="fare-amt" data-label="Starting Fare">₹1,700</td></tr>
+          <tr><td>Surat – Mumbai</td><td class="fare-dist" data-label="Approx. Distance">295 KM</td><td class="fare-amt" data-label="Starting Fare">₹4,000</td></tr>
+          <tr><td>Mumbai – Vapi</td><td class="fare-dist" data-label="Approx. Distance">180 KM</td><td class="fare-amt" data-label="Starting Fare">₹3,500</td></tr>
+          <tr><td>Gandhidham – Bhuj</td><td class="fare-dist" data-label="Approx. Distance">50 KM</td><td class="fare-amt" data-label="Starting Fare">₹1,700</td></tr>
+          <tr><td>Mundra – Gandhidham</td><td class="fare-dist" data-label="Approx. Distance">55 KM</td><td class="fare-amt" data-label="Starting Fare">₹2,000</td></tr>
+          <tr><td>Mount Abu – Rajkot</td><td class="fare-dist" data-label="Approx. Distance">402 KM</td><td class="fare-amt" data-label="Starting Fare">₹7,000</td></tr>
+          <tr><td>Ahmedabad – Ramdevra</td><td class="fare-dist" data-label="Approx. Distance">590 KM</td><td class="fare-amt" data-label="Starting Fare">₹12,500</td></tr>
+          <tr><td>Ahmedabad – Jalore</td><td class="fare-dist" data-label="Approx. Distance">325 KM</td><td class="fare-amt" data-label="Starting Fare">₹5,300</td></tr>
+          <tr><td>Ahmedabad – Siwana</td><td class="fare-dist" data-label="Approx. Distance">407 KM</td><td class="fare-amt" data-label="Starting Fare">₹8,000</td></tr>
+          <tr><td>Ahmedabad – Balotra</td><td class="fare-dist" data-label="Approx. Distance">395 KM</td><td class="fare-amt" data-label="Starting Fare">₹7,500</td></tr>
+          <tr><td>Ahmedabad – Balesar</td><td class="fare-dist" data-label="Approx. Distance">475 KM</td><td class="fare-amt" data-label="Starting Fare">₹9,000</td></tr>
+          <tr><td>Ahmedabad – Nagaur</td><td class="fare-dist" data-label="Approx. Distance">590 KM</td><td class="fare-amt" data-label="Starting Fare">₹12,500</td></tr>
+          <tr><td>Ahmedabad – Khatu Shyam</td><td class="fare-dist" data-label="Approx. Distance">740 KM</td><td class="fare-amt" data-label="Starting Fare">₹12,500</td></tr>
+          <tr><td>Ahmedabad – Pushkar</td><td class="fare-dist" data-label="Approx. Distance">551 KM</td><td class="fare-amt" data-label="Starting Fare">₹9,500</td></tr>
+          <tr><td>Ahmedabad – Kumbhalgarh</td><td class="fare-dist" data-label="Approx. Distance">335 KM</td><td class="fare-amt" data-label="Starting Fare">₹7,300</td></tr>
+          <tr><td>Ahmedabad – Beawar</td><td class="fare-dist" data-label="Approx. Distance">486 KM</td><td class="fare-amt" data-label="Starting Fare">₹8,500</td></tr>
+          <tr><td>Ahmedabad – Bikaner</td><td class="fare-dist" data-label="Approx. Distance">680 KM</td><td class="fare-amt" data-label="Starting Fare">₹15,200</td></tr>
+          <tr><td>Ahmedabad – Sri Ganganagar</td><td class="fare-dist" data-label="Approx. Distance">910 KM</td><td class="fare-amt" data-label="Starting Fare">₹18,500</td></tr>
+          <tr><td>Ahmedabad – Jhabua</td><td class="fare-dist" data-label="Approx. Distance">260 KM</td><td class="fare-amt" data-label="Starting Fare">₹6,500</td></tr>
+          <tr><td>Ahmedabad – Thandla</td><td class="fare-dist" data-label="Approx. Distance">280 KM</td><td class="fare-amt" data-label="Starting Fare">₹7,000</td></tr>
+          <tr><td>Ahmedabad – Sojat</td><td class="fare-dist" data-label="Approx. Distance">430 KM</td><td class="fare-amt" data-label="Starting Fare">₹7,500</td></tr>
         </tbody>
       </table>
     </div>
@@ -1122,6 +1147,7 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
   <!-- CHOOSE THE RIGHT CAB -->
   <div class="service-detail">
     <div class="service-detail-head">
+      <div class="service-eyebrow"><i class="fas fa-car"></i>Fleet Guide</div>
       <h3>Choose the Right <em>Cab for Your Journey</em></h3>
     </div>
     <div class="vehicle-grid">
@@ -1146,6 +1172,7 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
   <!-- WHY CHOOSE MOKSH TRAVEL -->
   <div class="service-detail">
     <div class="service-detail-head">
+      <div class="service-eyebrow"><i class="fas fa-star"></i>Why Us</div>
       <h3>Why Choose <em>Moksh Travel?</em></h3>
     </div>
     <div class="why-grid">
