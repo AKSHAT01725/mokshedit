@@ -370,18 +370,153 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
 .fare-table td:first-child { color:var(--ice); font-weight:600; }
 
 /* Fare tables become stacked cards on mobile — every column fits, no horizontal sliding */
-@media(max-width:700px){
-  .fare-table-wrap { overflow:visible; border:none; background:transparent; border-radius:0; box-shadow:none; }
-  .fare-table { min-width:0; width:100%; border-collapse:separate; border-spacing:0 14px; }
-  .fare-table thead { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
-  .fare-table tbody { display:block; }
-  .fare-table tbody tr { display:block; background:var(--navy-3); border:1px solid var(--line); border-radius:14px; padding:2px 18px; box-shadow:0 10px 26px rgba(0,0,0,0.22); }
-  .fare-table tbody tr:nth-child(even) td { background:transparent; }
-  .fare-table tr:hover td { background:transparent; }
-  .fare-table td { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:11px 0; border-top:1px solid var(--line); font-size:13px; white-space:normal; text-align:right; }
-  .fare-table td:first-child { display:block; text-align:left; border-top:none; font-family:'Space Grotesk'; font-weight:700; font-size:15.5px; color:var(--gold); padding:15px 0 12px; }
-  .fare-table td::before { content:attr(data-label); font-size:10.5px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--mute); text-align:left; }
-  .fare-table td:first-child::before { content:none; }
+/* =========================================
+   MOBILE FARE TABLE → SEPARATE CARDS
+   ========================================= */
+@media (max-width: 700px) {
+
+  .fare-table-wrap {
+    overflow: visible !important;
+    border: none !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .fare-table {
+    width: 100% !important;
+    min-width: 0 !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+  }
+
+  .fare-table thead {
+    display: none !important;
+  }
+
+  .fare-table tbody {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* ===== EACH CARD ===== */
+  .fare-table tbody tr {
+    display: block !important;
+    width: 100% !important;
+
+    /* IMPORTANT: creates real space between cards */
+    margin-bottom: 6px !important;
+
+    background: var(--navy-3) !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-radius: 18px !important;
+
+    padding: 4px 18px !important;
+
+    box-shadow:
+      0 8px 25px rgba(0, 0, 0, 0.30),
+      0 2px 8px rgba(0, 0, 0, 0.20) !important;
+
+    overflow: hidden !important;
+  }
+
+  /* Remove gap after final card */
+  .fare-table tbody tr:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /* ===== ROUTE NAME ===== */
+  .fare-table td:first-child {
+    display: block !important;
+
+    width: 100% !important;
+
+    padding: 16px 0 14px !important;
+
+    border-top: none !important;
+
+    text-align: left !important;
+
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+
+    color: var(--gold) !important;
+  }
+
+  .fare-table td:first-child::before {
+    display: none !important;
+    content: none !important;
+  }
+
+  /* ===== DISTANCE + FARE ROWS ===== */
+  .fare-table td {
+    display: flex !important;
+
+    width: 100% !important;
+
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 15px !important;
+
+    padding: 13px 0 !important;
+
+    border-top: 1px solid var(--line) !important;
+
+    font-size: 13px !important;
+
+    white-space: normal !important;
+
+    text-align: right !important;
+
+    background: transparent !important;
+  }
+
+  /* Labels on left */
+  .fare-table td::before {
+    content: attr(data-label) !important;
+
+    display: block !important;
+
+    font-size: 10.5px !important;
+    font-weight: 700 !important;
+
+    letter-spacing: 0.7px !important;
+    text-transform: uppercase !important;
+
+    color: var(--mute) !important;
+
+    text-align: left !important;
+
+    flex: 1 !important;
+  }
+
+  /* Values on right */
+  .fare-table td {
+    color: var(--ice);
+  }
+
+  /* Distance */
+  .fare-table td.fare-dist {
+    color: var(--teal) !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+  }
+
+  /* Fare */
+  .fare-table td.fare-price {
+    color: var(--gold) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+  }
+
+  /* Make sure hover doesn't join cards */
+  .fare-table tr:hover td {
+    background: transparent !important;
+  }
 }
 
 .vehicle-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
