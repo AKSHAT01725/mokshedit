@@ -324,6 +324,63 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
 .service-card h3 { font-size:15px; font-weight:700; margin-bottom:8px; }
 .service-card p { font-size:13.5px; color:var(--mute); line-height:1.6; }
 
+/* ── SERVICE DETAIL SUB-SECTIONS ── */
+.service-detail { margin-top:64px; padding-top:56px; border-top:1px solid var(--line); }
+.service-detail-head h3 { font-family:'Space Grotesk'; font-size:clamp(21px,2.6vw,28px); font-weight:700; color:var(--ice); margin-bottom:12px; }
+.service-detail-head h3 em { font-style:normal; color:var(--gold); }
+.service-detail-head p { font-size:14.5px; color:var(--mute); line-height:1.7; max-width:780px; margin-bottom:26px; }
+.service-detail-head p strong { color:var(--ice); }
+
+.tag-list { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:32px; }
+.tag-pill { background:var(--surface); border:1px solid var(--line); border-radius:30px; padding:8px 16px; font-size:13px; font-weight:600; color:rgba(238,242,248,0.8); transition:var(--transition); }
+.tag-pill:hover { border-color:var(--gold); color:var(--gold); background:var(--gold-dim); }
+
+.mini-feature-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
+.mini-feature-card { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:24px; transition:var(--transition); }
+.mini-feature-card:hover { border-color:var(--gold); background:var(--gold-dim); }
+.mini-feature-icon { width:40px; height:40px; border-radius:10px; background:var(--gold-dim); border:1px solid rgba(245,166,35,0.2); display:flex; align-items:center; justify-content:center; font-size:16px; margin-bottom:14px; color:var(--gold); }
+.mini-feature-card h4 { font-size:14.5px; font-weight:700; margin-bottom:6px; }
+.mini-feature-card p { font-size:13px; color:var(--mute); line-height:1.6; }
+
+.airport-card-outer { background:var(--navy-3); border:1px solid var(--line-2); border-radius:var(--radius-lg); padding:32px; }
+.airport-card-head { display:flex; align-items:center; gap:16px; margin-bottom:14px; }
+.airport-card-icon { width:52px; height:52px; border-radius:14px; background:var(--gold-dim); border:1px solid rgba(245,166,35,0.2); display:flex; align-items:center; justify-content:center; font-size:21px; color:var(--gold); flex-shrink:0; }
+.airport-card-outer h4 { font-family:'Space Grotesk'; font-size:17px; font-weight:700; }
+.airport-card-outer > p { font-size:13.5px; color:var(--mute); line-height:1.65; margin-bottom:24px; }
+.airport-area-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; }
+.airport-area-card { background:rgba(255,255,255,0.03); border:1px solid var(--line); border-radius:12px; padding:16px 18px; transition:var(--transition); }
+.airport-area-card:hover { border-color:var(--gold); }
+.airport-area-card strong { display:block; font-size:13.5px; font-weight:700; margin-bottom:4px; }
+.airport-area-card span { font-size:12px; color:var(--mute); }
+
+.info-note { display:flex; gap:12px; background:var(--gold-dim); border:1px solid rgba(245,166,35,0.25); border-left:3px solid var(--gold); border-radius:12px; padding:16px 20px; font-size:13px; color:rgba(238,242,248,0.8); line-height:1.65; margin-top:22px; }
+.info-note i { color:var(--gold); font-size:15px; margin-top:1px; }
+.info-note strong { color:var(--gold); }
+
+.fare-table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:var(--navy-3); }
+.fare-table { width:100%; border-collapse:collapse; min-width:600px; }
+.fare-table th { background:var(--gold); color:#1a0f00; text-align:left; font-size:11px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; padding:14px 18px; white-space:nowrap; }
+.fare-table td { padding:13px 18px; font-size:13.5px; color:rgba(238,242,248,0.85); border-top:1px solid var(--line); white-space:nowrap; }
+.fare-table tr:hover td { background:rgba(255,255,255,0.025); }
+.fare-table td.fare-amt { color:var(--gold); font-weight:700; font-family:'Space Grotesk'; }
+.fare-table td.fare-dist { color:var(--teal); }
+
+.vehicle-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+.vehicle-card { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:26px; text-align:center; transition:var(--transition); }
+.vehicle-card:hover { border-color:var(--gold); transform:translateY(-4px); }
+.vehicle-card .service-icon { margin:0 auto 16px; }
+.vehicle-card h4 { font-family:'Space Grotesk'; font-size:16px; font-weight:700; margin-bottom:8px; }
+.vehicle-card p { font-size:13px; color:var(--mute); line-height:1.6; }
+
+.why-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:22px 18px; }
+.why-card i { color:var(--gold); font-size:18px; margin-bottom:12px; display:block; }
+.why-card h4 { font-size:14px; font-weight:700; margin-bottom:6px; }
+.why-card p { font-size:12.5px; color:var(--mute); line-height:1.6; }
+
+.book-cta-bar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px; background:linear-gradient(135deg,#0d1f3e,#091629); border:1px solid var(--line-2); border-radius:var(--radius-lg); padding:32px 36px; }
+.book-cta-bar h4 { font-family:'Space Grotesk'; font-size:19px; font-weight:700; margin-bottom:6px; }
+.book-cta-bar p { font-size:13px; color:var(--mute); }
+
 /* ── CARS ── */
 #cars { background:var(--navy-2); }
 .cars-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px; }
@@ -871,15 +928,253 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
   <div class="section-header-center" style="margin-bottom:48px">
     <div class="section-tag">What We Offer</div>
     <h2 class="section-title">Our Services</h2>
-    <p class="section-sub">From daily city rides to complete Gujarat tour packages — we've got every journey covered.</p>
+    <p class="section-sub">Reliable cab booking from Ahmedabad — airport transfers, local travel, one-way journeys and outstation trips across Gujarat, Rajasthan, Maharashtra, Madhya Pradesh and beyond.</p>
   </div>
   <div class="services-grid">
-    <div class="service-card"><div class="service-icon">🚖</div><h3>Outstation Booking</h3><p>Comfortable, safe long-distance cab service to any destination across Gujarat and India.</p></div>
-    <div class="service-card"><div class="service-icon">✈️</div><h3>Airport Transfer</h3><p>On-time pickup and drop with flight-tracking and professional chauffeurs.</p></div>
-    <div class="service-card"><div class="service-icon">🏢</div><h3>Corporate Travel</h3><p>Dedicated professional travel solutions for businesses, teams and executives.</p></div>
-    <div class="service-card"><div class="service-icon">💍</div><h3>Wedding & Events</h3><p>Luxury vehicle arrangements for weddings, ceremonies and special occasions.</p></div>
-    <div class="service-card"><div class="service-icon">🌆</div><h3>Gujarat Tours</h3><p>Explore Gujarat's heritage, beaches and wildlife with premium rides and expert drivers.</p></div>
-    <div class="service-card"><div class="service-icon">🔁</div><h3>One Way & Round Trip</h3><p>Flexible booking options — pay only for the distance you travel, no hassle.</p></div>
+    <div class="service-card"><div class="service-icon">🚖</div><h3>One Way Cab Service</h3><p>Travel from Ahmedabad to your destination without paying for a return trip — ideal for point-to-point journeys.</p></div>
+    <div class="service-card"><div class="service-icon">✈️</div><h3>Airport Taxi Service</h3><p>Pre-booked pickup and drop between Ahmedabad Airport and every part of the city, for early flights or late arrivals.</p></div>
+    <div class="service-card"><div class="service-icon">🛣️</div><h3>Outstation Taxi</h3><p>Short and long-distance travel across Gujarat, Rajasthan, Maharashtra and Madhya Pradesh in a vehicle sized for your group.</p></div>
+    <div class="service-card"><div class="service-icon">🏙️</div><h3>Local Taxi Service</h3><p>Flexible hourly packages for sightseeing, meetings, shopping, events and multiple stops within Ahmedabad.</p></div>
+    <div class="service-card"><div class="service-icon">💍</div><h3>Wedding & Events</h3><p>Vehicle arrangements for weddings, ceremonies and special occasions, with drivers who know the schedule matters.</p></div>
+    <div class="service-card"><div class="service-icon">🏢</div><h3>Corporate Travel</h3><p>Dependable business travel for teams and executives, booked directly with Moksh Travel.</p></div>
+  </div>
+
+  <!-- ONE WAY CAB SERVICE -->
+  <div class="service-detail">
+    <div class="service-detail-head">
+      <h3>One Way Cab <em>Service</em></h3>
+      <p>Travel from Ahmedabad to your destination with a convenient one-way taxi. One-way cab booking is ideal when you do not require the vehicle for the return journey. Choose from Sedan, Ertiga or Innova Crysta depending on your travel requirements and group size.</p>
+    </div>
+    <div class="tag-list">
+      <span class="tag-pill">Ahmedabad to Surat</span>
+      <span class="tag-pill">Ahmedabad to Rajkot</span>
+      <span class="tag-pill">Ahmedabad to Udaipur</span>
+      <span class="tag-pill">Ahmedabad to Vadodara</span>
+      <span class="tag-pill">Ahmedabad to Gandhinagar</span>
+      <span class="tag-pill">Ahmedabad to Mount Abu</span>
+      <span class="tag-pill">Ahmedabad to Bhuj</span>
+      <span class="tag-pill">Ahmedabad to Dwarka</span>
+      <span class="tag-pill">Ahmedabad to Somnath</span>
+      <span class="tag-pill">Ahmedabad to Mumbai</span>
+      <span class="tag-pill">Ahmedabad to Jaipur</span>
+      <span class="tag-pill">Ahmedabad to Indore</span>
+    </div>
+    <div class="mini-feature-grid">
+      <div class="mini-feature-card">
+        <div class="mini-feature-icon">₹</div>
+        <h4>Transparent Fare</h4>
+        <p>Get an estimated fare before your journey so you can plan your travel budget more easily.</p>
+      </div>
+      <div class="mini-feature-card">
+        <div class="mini-feature-icon">🚗</div>
+        <h4>Multiple Vehicles</h4>
+        <p>Choose from Sedan, Ertiga SUV and Innova Crysta according to your group size and comfort needs.</p>
+      </div>
+      <div class="mini-feature-card">
+        <div class="mini-feature-icon">🔀</div>
+        <h4>Long Distance Routes</h4>
+        <p>Book one-way taxis from Ahmedabad to major Gujarat destinations and selected cities outside Gujarat.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AIRPORT TAXI SERVICE -->
+  <div class="service-detail">
+    <div class="service-detail-head">
+      <h3>Ahmedabad Airport <em>Taxi Service</em></h3>
+      <p>Moksh Travel provides convenient <strong>Ahmedabad airport taxi service</strong> for pickup and drop-off between Sardar Vallabhbhai Patel International Airport (AMD) and different parts of Ahmedabad. Whether you have an early morning departure, late-night arrival or a scheduled business trip, you can pre-book your cab for a smoother airport transfer.</p>
+    </div>
+    <div class="airport-card-outer">
+      <div class="airport-card-head">
+        <div class="airport-card-icon">✈️</div>
+        <h4>Airport Pickup &amp; Drop Across Ahmedabad</h4>
+      </div>
+      <p>Airport taxi service is available for major residential, commercial and business areas of Ahmedabad. Final airport fare depends on the pickup/drop location, vehicle category, timing and applicable charges. Contact Moksh Travel before booking for the latest confirmed airport transfer fare.</p>
+      <div class="airport-area-grid">
+        <div class="airport-area-card"><strong>SG Highway</strong><span>Airport pickup and drop service available.</span></div>
+        <div class="airport-area-card"><strong>Satellite</strong><span>Convenient pre-booked airport transfers.</span></div>
+        <div class="airport-area-card"><strong>Prahlad Nagar</strong><span>Reliable city-to-airport cab service.</span></div>
+      </div>
+    </div>
+    <div class="tag-list" style="margin-top:24px">
+      <span class="tag-pill">Airport to City</span>
+      <span class="tag-pill">City to Airport</span>
+      <span class="tag-pill">Airport to Gandhinagar</span>
+      <span class="tag-pill">Airport to Hotels &amp; Business Locations</span>
+      <span class="tag-pill">Family &amp; Group Transfers</span>
+      <span class="tag-pill">Outstation Travel from the Airport</span>
+    </div>
+  </div>
+
+  <!-- OUTSTATION TAXI SERVICE -->
+  <div class="service-detail">
+    <div class="service-detail-head">
+      <h3>Outstation Taxi <em>Service from Ahmedabad</em></h3>
+      <p>Moksh Travel provides outstation taxi services for short and long-distance travel. Whether you are travelling to Gujarat, Rajasthan, Maharashtra or Madhya Pradesh, you can select a vehicle according to your journey and passenger requirements. Our outstation taxi service is suitable for:</p>
+    </div>
+    <div class="tag-list">
+      <span class="tag-pill">Family Vacations</span>
+      <span class="tag-pill">Business Travel</span>
+      <span class="tag-pill">Religious Trips</span>
+      <span class="tag-pill">Weekend Getaways</span>
+      <span class="tag-pill">Wedding Transportation</span>
+      <span class="tag-pill">Hotel Transfers</span>
+      <span class="tag-pill">Multi-City Journeys</span>
+      <span class="tag-pill">One-Way &amp; Round-Trip Travel</span>
+    </div>
+  </div>
+
+  <!-- LOCAL TAXI SERVICE + PACKAGE TABLE -->
+  <div class="service-detail">
+    <div class="service-detail-head">
+      <h3>Ahmedabad Local <em>Taxi Service</em></h3>
+      <p>Need a cab for local sightseeing, meetings, shopping, events or multiple stops within Ahmedabad? Our local cab packages are designed for flexible city travel.</p>
+    </div>
+    <div class="fare-table-wrap">
+      <table class="fare-table">
+        <thead>
+          <tr><th>Package</th><th>Sedan</th><th>Ertiga</th><th>Innova Crysta</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>4 Hours / 40 KM</td><td class="fare-amt">₹1,500</td><td class="fare-amt">₹2,200</td><td class="fare-amt">₹3,000</td></tr>
+          <tr><td>8 Hours / 80 KM</td><td class="fare-amt">₹2,000</td><td class="fare-amt">₹2,800</td><td class="fare-amt">₹4,000</td></tr>
+          <tr><td>12 Hours / 120 KM</td><td class="fare-amt">₹2,800</td><td class="fare-amt">₹3,600</td><td class="fare-amt">₹5,000</td></tr>
+          <tr><td>Extra KM</td><td class="fare-amt">₹11</td><td class="fare-amt">₹15</td><td class="fare-amt">₹20</td></tr>
+          <tr><td>Extra Hour</td><td class="fare-amt">₹180</td><td class="fare-amt">₹200</td><td class="fare-amt">₹250</td></tr>
+          <tr><td>Parking</td><td>Extra</td><td>Extra</td><td>Extra</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-note"><i class="fas fa-circle-info"></i><span><strong>Local package note:</strong> Additional kilometres are charged according to the selected vehicle. Night charges may apply for journeys during the applicable night hours. Parking charges are extra where applicable.</span></div>
+  </div>
+
+  <!-- ONE WAY TAXI FARE TABLE -->
+  <div class="service-detail">
+    <div class="service-detail-head">
+      <h3>Ahmedabad One Way <em>Taxi Fare</em></h3>
+      <p>Below are selected estimated one-way fares from Ahmedabad. Prices vary depending on the travel date, vehicle availability, route, pickup location and other applicable charges.</p>
+    </div>
+    <div class="fare-table-wrap">
+      <table class="fare-table">
+        <thead>
+          <tr><th>Destination</th><th>Approx. Distance</th><th>Sedan</th><th>Ertiga</th><th>Innova Crysta</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Surat</td><td class="fare-dist">260 KM</td><td class="fare-amt">₹3,400</td><td class="fare-amt">₹4,000</td><td class="fare-amt">₹8,500</td></tr>
+          <tr><td>Rajkot</td><td class="fare-dist">215 KM</td><td class="fare-amt">₹2,400</td><td class="fare-amt">₹3,000</td><td class="fare-amt">₹8,600</td></tr>
+          <tr><td>Udaipur</td><td class="fare-dist">269 KM</td><td class="fare-amt">₹3,400</td><td class="fare-amt">₹4,000</td><td class="fare-amt">₹9,500</td></tr>
+          <tr><td>Gandhinagar</td><td class="fare-dist">26 KM</td><td class="fare-amt">₹800</td><td class="fare-amt">₹1,100</td><td class="fare-amt">₹2,200</td></tr>
+          <tr><td>Dwarka</td><td class="fare-dist">448 KM</td><td class="fare-amt">₹7,000</td><td class="fare-amt">₹8,300</td><td class="fare-amt">₹14,920</td></tr>
+          <tr><td>Somnath</td><td class="fare-dist">424 KM</td><td class="fare-amt">₹6,784</td><td class="fare-amt">₹8,480</td><td class="fare-amt">₹13,960</td></tr>
+          <tr><td>Mumbai</td><td class="fare-dist">533 KM</td><td class="fare-amt">₹7,528</td><td class="fare-amt">₹8,660</td><td class="fare-amt">₹18,500</td></tr>
+          <tr><td>Mount Abu</td><td class="fare-dist">229 KM</td><td class="fare-amt">₹3,664</td><td class="fare-amt">₹4,580</td><td class="fare-amt">₹9,160</td></tr>
+          <tr><td>Jaipur</td><td class="fare-dist">659 KM</td><td class="fare-amt">₹11,862</td><td class="fare-amt">₹16,475</td><td class="fare-amt">₹26,360</td></tr>
+          <tr><td>Bhuj</td><td class="fare-dist">334 KM</td><td class="fare-amt">₹4,500</td><td class="fare-amt">₹5,580</td><td class="fare-amt">₹13,360</td></tr>
+          <tr><td>Indore</td><td class="fare-dist">388 KM</td><td class="fare-amt">₹6,208</td><td class="fare-amt">₹7,760</td><td class="fare-amt">₹15,520</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-note"><i class="fas fa-circle-info"></i><span><strong>Fare information:</strong> The above prices are estimated fares and may vary depending on the travel date, vehicle availability, route, pickup location and other applicable charges. Tolls, parking, taxes, night charges or other applicable expenses may be extra. Please contact Moksh Travel for the latest fare before confirming your booking.</span></div>
+  </div>
+
+  <!-- POPULAR OUTSTATION ROUTES -->
+  <div class="service-detail">
+    <div class="service-detail-head">
+      <h3>Popular Outstation <em>Routes &amp; Starting Fares</em></h3>
+      <p>Moksh Travel provides taxi services on a wide range of intercity routes. Starting fares are indicative and subject to vehicle type, travel date, route and applicable charges.</p>
+    </div>
+    <div class="fare-table-wrap">
+      <table class="fare-table">
+        <thead>
+          <tr><th>Route</th><th>Approx. Distance</th><th>Starting Fare</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ahmedabad – Dhoraji</td><td class="fare-dist">320 KM</td><td class="fare-amt">₹5,000</td></tr>
+          <tr><td>Rajkot – Dhoraji</td><td class="fare-dist">90 KM</td><td class="fare-amt">₹2,700</td></tr>
+          <tr><td>Rajkot – Gondal</td><td class="fare-dist">40 KM</td><td class="fare-amt">₹1,700</td></tr>
+          <tr><td>Somnath – Porbandar</td><td class="fare-dist">132 KM</td><td class="fare-amt">₹4,000</td></tr>
+          <tr><td>Diu – Somnath</td><td class="fare-dist">95 KM</td><td class="fare-amt">₹3,000</td></tr>
+          <tr><td>Dwarka – Somnath</td><td class="fare-dist">270 KM</td><td class="fare-amt">₹6,500</td></tr>
+          <tr><td>Vadodara – Kevadiya</td><td class="fare-dist">90 KM</td><td class="fare-amt">₹2,700</td></tr>
+          <tr><td>Vadodara – Statue of Unity</td><td class="fare-dist">90 KM</td><td class="fare-amt">₹2,700</td></tr>
+          <tr><td>Vadodara – Pavagadh</td><td class="fare-dist">40 KM</td><td class="fare-amt">₹1,500</td></tr>
+          <tr><td>Vadodara – Halol</td><td class="fare-dist">40 KM</td><td class="fare-amt">₹1,500</td></tr>
+          <tr><td>Dahej – Bharuch</td><td class="fare-dist">55 KM</td><td class="fare-amt">₹1,700</td></tr>
+          <tr><td>Bharuch – Vadodara</td><td class="fare-dist">80 KM</td><td class="fare-amt">₹2,000</td></tr>
+          <tr><td>Surat – Bharuch</td><td class="fare-dist">75 KM</td><td class="fare-amt">₹1,700</td></tr>
+          <tr><td>Surat – Mumbai</td><td class="fare-dist">295 KM</td><td class="fare-amt">₹4,000</td></tr>
+          <tr><td>Mumbai – Vapi</td><td class="fare-dist">180 KM</td><td class="fare-amt">₹3,500</td></tr>
+          <tr><td>Gandhidham – Bhuj</td><td class="fare-dist">50 KM</td><td class="fare-amt">₹1,700</td></tr>
+          <tr><td>Mundra – Gandhidham</td><td class="fare-dist">55 KM</td><td class="fare-amt">₹2,000</td></tr>
+          <tr><td>Mount Abu – Rajkot</td><td class="fare-dist">402 KM</td><td class="fare-amt">₹7,000</td></tr>
+          <tr><td>Ahmedabad – Ramdevra</td><td class="fare-dist">590 KM</td><td class="fare-amt">₹12,500</td></tr>
+          <tr><td>Ahmedabad – Jalore</td><td class="fare-dist">325 KM</td><td class="fare-amt">₹5,300</td></tr>
+          <tr><td>Ahmedabad – Siwana</td><td class="fare-dist">407 KM</td><td class="fare-amt">₹8,000</td></tr>
+          <tr><td>Ahmedabad – Balotra</td><td class="fare-dist">395 KM</td><td class="fare-amt">₹7,500</td></tr>
+          <tr><td>Ahmedabad – Balesar</td><td class="fare-dist">475 KM</td><td class="fare-amt">₹9,000</td></tr>
+          <tr><td>Ahmedabad – Nagaur</td><td class="fare-dist">590 KM</td><td class="fare-amt">₹12,500</td></tr>
+          <tr><td>Ahmedabad – Khatu Shyam</td><td class="fare-dist">740 KM</td><td class="fare-amt">₹12,500</td></tr>
+          <tr><td>Ahmedabad – Pushkar</td><td class="fare-dist">551 KM</td><td class="fare-amt">₹9,500</td></tr>
+          <tr><td>Ahmedabad – Kumbhalgarh</td><td class="fare-dist">335 KM</td><td class="fare-amt">₹7,300</td></tr>
+          <tr><td>Ahmedabad – Beawar</td><td class="fare-dist">486 KM</td><td class="fare-amt">₹8,500</td></tr>
+          <tr><td>Ahmedabad – Bikaner</td><td class="fare-dist">680 KM</td><td class="fare-amt">₹15,200</td></tr>
+          <tr><td>Ahmedabad – Sri Ganganagar</td><td class="fare-dist">910 KM</td><td class="fare-amt">₹18,500</td></tr>
+          <tr><td>Ahmedabad – Jhabua</td><td class="fare-dist">260 KM</td><td class="fare-amt">₹6,500</td></tr>
+          <tr><td>Ahmedabad – Thandla</td><td class="fare-dist">280 KM</td><td class="fare-amt">₹7,000</td></tr>
+          <tr><td>Ahmedabad – Sojat</td><td class="fare-dist">430 KM</td><td class="fare-amt">₹7,500</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CHOOSE THE RIGHT CAB -->
+  <div class="service-detail">
+    <div class="service-detail-head">
+      <h3>Choose the Right <em>Cab for Your Journey</em></h3>
+    </div>
+    <div class="vehicle-grid">
+      <div class="vehicle-card">
+        <div class="service-icon" style="margin:0 auto 16px">🚗</div>
+        <h4>Sedan Cab</h4>
+        <p>A practical choice for couples, small families and business travellers looking for comfortable and economical transportation.</p>
+      </div>
+      <div class="vehicle-card">
+        <div class="service-icon" style="margin:0 auto 16px">🚙</div>
+        <h4>Ertiga</h4>
+        <p>A spacious option for families and small groups who need additional passenger and luggage space.</p>
+      </div>
+      <div class="vehicle-card">
+        <div class="service-icon" style="margin:0 auto 16px">🚐</div>
+        <h4>Innova Crysta</h4>
+        <p>A premium and spacious choice for longer journeys, family trips and travellers who prefer additional comfort.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY CHOOSE MOKSH TRAVEL -->
+  <div class="service-detail">
+    <div class="service-detail-head">
+      <h3>Why Choose <em>Moksh Travel?</em></h3>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><i class="fas fa-couch"></i><h4>Comfortable Travel</h4><p>Choose a vehicle that suits your passenger count, luggage and travel requirements.</p></div>
+      <div class="why-card"><i class="fas fa-phone-volume"></i><h4>Convenient Booking</h4><p>Book your taxi by contacting Moksh Travel directly for availability and fare information.</p></div>
+      <div class="why-card"><i class="fas fa-route"></i><h4>Multiple Travel Options</h4><p>From short city rides to long-distance journeys — local, one-way, airport and outstation taxi services.</p></div>
+      <div class="why-card"><i class="fas fa-tags"></i><h4>Transparent Fare Information</h4><p>Estimated fares are provided clearly so you understand the expected travel cost before booking.</p></div>
+      <div class="why-card"><i class="fas fa-car-side"></i><h4>Suitable Vehicles</h4><p>Select from Sedan, Ertiga and Innova Crysta according to your journey requirements.</p></div>
+      <div class="why-card"><i class="fas fa-map-marked-alt"></i><h4>Ahmedabad &amp; Outstation Coverage</h4><p>Travel from Ahmedabad to popular destinations across Gujarat and other nearby states.</p></div>
+    </div>
+  </div>
+
+  <!-- BOOK CTA -->
+  <div class="service-detail" style="border-top:none; margin-top:48px; padding-top:0">
+    <div class="book-cta-bar">
+      <div>
+        <h4>Book Your Ahmedabad Cab with Moksh Travel</h4>
+        <p>Tell us your pickup location, destination, travel date, number of passengers and preferred vehicle.</p>
+      </div>
+      <a href="tel:+919727729334" class="btn-primary"><i class="fas fa-phone"></i> Call +91 97277 29334</a>
+    </div>
   </div>
 
   <div class="hero-stats">
