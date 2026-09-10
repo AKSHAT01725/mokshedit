@@ -536,16 +536,6 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
 .book-cta-bar p { font-size:13px; color:var(--mute); }
 
 /* ── CARS ── */
-#cars { background:var(--navy-2); }
-.cars-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px; }
-.car-card { background:var(--navy-3); border:1px solid var(--line); border-radius:var(--radius-lg); overflow:hidden; transition:var(--transition); }
-.car-card:hover { border-color:var(--line-2); transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,0.4); }
-.car-img-wrap { position:relative; overflow:hidden; }
-.car-img-wrap img { width:100%; height:auto; display:block; transition:transform 0.5s ease; }
-.car-card:hover .car-img-wrap img { transform:scale(1.06); }
-.car-body { padding:22px; }
-.car-body h3 { font-family:'Space Grotesk'; font-size:17px; font-weight:700; margin-bottom:6px; }
-.car-seater { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--teal); font-weight:600; background:var(--teal-dim); border-radius:20px; padding:4px 12px; margin-bottom:14px; }
 
 /* ── ROUTES ── */
 .routes-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
@@ -877,7 +867,6 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
       <a href="#roundtrip">Round Trip</a>
       <a href="#routes">Routes</a>
       <a href="#ticket-services">Tickets</a>
-      <a href="#cars">Fleet</a>
       <a href="#services">Services</a>
       <a href="#faq">FAQ</a>
       <a href="reviews.html">Reviews</a>
@@ -1081,41 +1070,6 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- FLEET -->
-<section id="cars">
-  <div class="section-header-center" style="margin-bottom:48px">
-    <div class="section-tag">Our Fleet</div>
-    <h2 class="section-title">Available Vehicles</h2>
-    <p class="section-sub">Well-maintained, clean and comfortable vehicles for every type of journey.</p>
-  </div>
-  <div class="cars-grid">
-    <div class="car-card">
-      <div class="car-img-wrap"><img src="Swift Dzire.webp" alt="Swift Dzire"></div>
-      <div class="car-body">
-        <h3>Swift Dzire</h3>
-        <div class="car-seater"><i class="fas fa-user"></i> 4 Seater — Sedan</div>
-        <p style="font-size:13px;color:var(--mute)">Ideal for 1–4 passengers. Fuel-efficient, comfortable and perfect for city and outstation trips.</p>
-      </div>
-    </div>
-    <div class="car-card">
-      <div class="car-img-wrap"><img src="Ertigaa.webp" alt="Maruti Ertiga"></div>
-      <div class="car-body">
-        <h3>Maruti Ertiga</h3>
-        <div class="car-seater"><i class="fas fa-user"></i> 7 Seater — SUV</div>
-        <p style="font-size:13px;color:var(--mute)">Spacious 7-seater perfect for families and groups. Smooth, reliable and comfortable.</p>
-      </div>
-    </div>
-    <div class="car-card">
-      <div class="car-img-wrap"><img src="Inova Crysta.webp" alt="Innova Crysta"></div>
-      <div class="car-body">
-        <h3>Innova Crysta</h3>
-        <div class="car-seater"><i class="fas fa-user"></i> 7 Seater — Premium SUV</div>
-        <p style="font-size:13px;color:var(--mute)">Premium comfort and ample boot space — the top choice for long outstation journeys.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1543,7 +1497,6 @@ select.loc-input option { background:#0f2348; color:var(--ice); font-size:15px; 
       <a href="#roundtrip">Round Trip</a>
       <a href="#routes">Popular Routes</a>
       <a href="#ticket-services">Railway, Flight &amp; Hotel</a>
-      <a href="#cars">Our Fleet</a>
       <a href="#services">Our Services</a>
       <a href="#faq">FAQ</a>
       <a href="reviews.html">Reviews</a>
