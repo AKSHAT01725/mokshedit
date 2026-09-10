@@ -587,6 +587,9 @@ tr.data-row:hover td{ background:rgba(255,255,255,0.018); }
 <div class="nav-item" onclick="showPage('roundtrippricing',this)">
   <i class="fas fa-tags"></i> Round Trip Pricing <span class="nav-count" id="navCountRoundTripPricing">0</span>
 </div>
+<div class="nav-item" onclick="showPage('tripdarshan',this)">
+  <i class="fas fa-map-location-dot"></i> Trip Darshan <span class="nav-count" id="navCountTripDarshan">0</span>
+</div>
 <div class="nav-item" onclick="showPage('settings',this)">
       <i class="fas fa-gear"></i> Settings
     </div>
@@ -812,6 +815,26 @@ tr.data-row:hover td{ background:rgba(255,255,255,0.018); }
   </div>
 </div>
 
+    <!-- TRIP DARSHAN PACKAGES -->
+<div class="page" id="page-tripdarshan">
+  <div class="search-bar">
+    <input type="text" id="tdSearch" placeholder="Search package title…" oninput="renderTripDarshan()">
+    <button class="btn-sm btn-amber" onclick="openTripDarshanModal()"><i class="fas fa-plus"></i> Add Package</button>
+  </div>
+  <div class="table-card">
+    <div class="table-header">
+      <h3><i class="fas fa-map-location-dot"></i>Trip Darshan Packages</h3>
+      <span class="settings-val" id="tdCount"></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Title</th><th>Route</th><th>Price</th><th>Duration</th><th>Distance</th><th>Action</th></tr></thead>
+        <tbody id="tdBody"><tr class="loading-row"><td colspan="6">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
     <!-- SETTINGS -->
      
     <div class="page" id="page-settings">
@@ -922,6 +945,74 @@ tr.data-row:hover td{ background:rgba(255,255,255,0.018); }
   </div>
 </div>
 
+<!-- TRIP DARSHAN ADD/EDIT MODAL -->
+<div id="tripDarshanModal" style="position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(4,10,24,0.75);backdrop-filter:blur(10px);padding:20px;">
+  <div style="background:var(--ink);border:1px solid var(--line-2);border-radius:16px;padding:32px;max-width:560px;width:100%;position:relative;max-height:90vh;overflow-y:auto;">
+    <h3 style="font-family:'Space Grotesk';font-size:18px;margin-bottom:20px;color:var(--amber);" id="tripDarshanModalTitle">Add Package</h3>
+    <div class="field">
+      <label>Package Title</label>
+      <input type="text" id="tdTitle" placeholder="Dwarka-Somnath-Diu">
+    </div>
+    <div class="field">
+      <label>Route (subtitle)</label>
+      <input type="text" id="tdRoute" placeholder="Ahmedabad-Dwarka-Somnath-Diu-Ahmedabad">
+    </div>
+    <div class="field">
+      <label>Cover Image URL</label>
+      <input type="text" id="tdImage" placeholder="https://... or a filename in the repo">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div class="field">
+        <label>Price (₹)</label>
+        <input type="number" id="tdPrice" placeholder="20500">
+      </div>
+      <div class="field">
+        <label>Duration Badge</label>
+        <input type="text" id="tdBadge" placeholder="4N / 5D">
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div class="field">
+        <label>Duration (full text)</label>
+        <input type="text" id="tdDuration" placeholder="4 Nights / 5 Days">
+      </div>
+      <div class="field">
+        <label>Total Distance</label>
+        <input type="text" id="tdDistance" placeholder="1,500 KM">
+      </div>
+    </div>
+    <div class="field">
+      <label>What's Included (comma-separated)</label>
+      <input type="text" id="tdInclusions" placeholder="Driver Allowance, Toll Charges, Parking Charges">
+    </div>
+    <div class="field">
+      <label>Best For (comma-separated, optional)</label>
+      <input type="text" id="tdBestFor" placeholder="Family Tours, Senior Citizens, Religious Tours">
+    </div>
+    <div class="field">
+      <label>Day-by-Day Itinerary</label>
+      <textarea id="tdItinerary" rows="10" style="width:100%;padding:13px 15px;background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:9px;color:var(--ice);font-size:13.5px;font-family:inherit;outline:none;resize:vertical;line-height:1.6;" placeholder="Day 1 — Ahmedabad → Dwarka
+Travel from Ahmedabad to Dwarka.
+Night Stay: Dwarka
+
+Day 2 — Dwarka Local Sightseeing
+Visit:
+Dwarkadhish Temple
+Beyt Dwarka
+Nageshwar Jyotirlinga
+Night Stay: Dwarka
+
+Day 3 — Dwarka → Ahmedabad
+Comfortable drop at Ahmedabad."></textarea>
+      <span style="display:block;font-size:11.5px;color:var(--mute);margin-top:6px;line-height:1.6;">Separate each day with a blank line. The first line of each block is the day heading; every line after it becomes a point. A line starting with "Night Stay:" is highlighted automatically.</span>
+    </div>
+    <button class="login-btn" onclick="saveTripDarshan()" style="margin-bottom:12px;">
+      <i class="fas fa-check"></i> &nbsp;Save Package
+    </button>
+    <button style="width:100%;background:none;border:none;color:var(--mute);font-size:13px;cursor:pointer;padding:6px;" onclick="closeTripDarshanModal()">Cancel</button>
+  </div>
+</div>
+
 <!-- BULK RATE ADJUST MODAL -->
 <div id="bulkAdjustModal" style="position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(4,10,24,0.75);backdrop-filter:blur(10px);padding:20px;">
   <div style="background:var(--ink);border:1px solid var(--line-2);border-radius:16px;padding:32px;max-width:440px;width:100%;position:relative;">
@@ -989,6 +1080,7 @@ let routesCache   = [];
 let roundCache    = [];
 let routePricingCache = [];
 let roundTripRatesCache = [];
+let tripDarshanCache = [];
 let isFetching    = false;
 
 // ─────────────────────────────────────────
@@ -1114,18 +1206,20 @@ window.refreshAll = async function(showSpinner){
   if(showSpinner) btn.classList.add('spinning');
 
   try{
-    const [bookings, routes, round, routePricing, roundTripRates] = await Promise.all([
+    const [bookings, routes, round, routePricing, roundTripRates, tripDarshan] = await Promise.all([
   fetchCollection('bookings'),
   fetchCollection('routeInquiries'),
   fetchCollection('roundTripRequests'),
   fetchCollection('routes', 'order', 'asc'),
-  fetchCollection('roundTripRates', 'order', 'asc')
+  fetchCollection('roundTripRates', 'order', 'asc'),
+  fetchCollection('tripDarshan', 'order', 'asc')
 ]);
 bookingsCache = bookings;
 routesCache   = routes;
 roundCache    = round;
 routePricingCache = routePricing;
 roundTripRatesCache = roundTripRates;
+tripDarshanCache = tripDarshan;
 
 updateStats();
 updateTicker();
@@ -1136,6 +1230,7 @@ renderRoutes();
 renderRound();
 renderRoutePricing();
 renderRoundTripPricing();
+renderTripDarshan();
   }catch(e){
     console.error(e);
     showToast('⚠ Could not load data: ' + (e.message||'check Firestore rules'));
@@ -1191,6 +1286,7 @@ function updateStats(){
   document.getElementById('navCountRound').textContent    = roundCache.length;
   document.getElementById('navCountRoutePricing').textContent = routePricingCache.length;
 document.getElementById('navCountRoundTripPricing').textContent = roundTripRatesCache.length;
+document.getElementById('navCountTripDarshan').textContent = tripDarshanCache.length;
 }
 
 function updateTicker(){
@@ -1494,6 +1590,99 @@ window.deleteRtRate = async function(id){
 };
 
 // ─────────────────────────────────────────
+// RENDER: TRIP DARSHAN PACKAGES
+// ─────────────────────────────────────────
+window.renderTripDarshan = function(){
+  const q = (document.getElementById('tdSearch').value||'').toLowerCase();
+  let data = tripDarshanCache;
+  if(q) data = data.filter(r => (r.title||'').toLowerCase().includes(q));
+  document.getElementById('tdCount').textContent = data.length + ' package(s)';
+  const tbody = document.getElementById('tdBody');
+  if(!data.length){
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="6"><div class="empty-icon">🗺️</div>No trip darshan packages added yet</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map(r => `
+    <tr class="data-row">
+      <td><strong>${esc(r.title)}</strong></td>
+      <td>${esc(r.route)}</td>
+      <td>₹${esc(r.price)}</td>
+      <td>${esc(r.badge)}</td>
+      <td>${esc(r.distance)}</td>
+      <td>
+        <button class="del-btn" style="border-color:rgba(255,180,0,0.3);color:var(--amber);margin-right:6px;" onclick="openTripDarshanModal('${r.id}')"><i class="fas fa-pen"></i></button>
+        <button class="del-btn" onclick="deleteTripDarshan('${r.id}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>
+  `).join('');
+};
+
+window.openTripDarshanModal = function(id){
+  const modal = document.getElementById('tripDarshanModal');
+  const title = document.getElementById('tripDarshanModalTitle');
+  window._editingTripDarshanId = id || null;
+  const r = id ? tripDarshanCache.find(x => x.id === id) : null;
+  title.textContent = id ? 'Edit Package' : 'Add Package';
+  document.getElementById('tdTitle').value      = r ? r.title      : '';
+  document.getElementById('tdRoute').value      = r ? r.route      : '';
+  document.getElementById('tdImage').value      = r ? r.image      : '';
+  document.getElementById('tdPrice').value      = r ? r.price      : '';
+  document.getElementById('tdBadge').value      = r ? r.badge      : '';
+  document.getElementById('tdDuration').value   = r ? r.duration   : '';
+  document.getElementById('tdDistance').value   = r ? r.distance   : '';
+  document.getElementById('tdInclusions').value = r ? r.inclusions : '';
+  document.getElementById('tdBestFor').value    = r ? r.bestFor    : '';
+  document.getElementById('tdItinerary').value  = r ? r.itinerary  : '';
+  modal.style.display = 'flex';
+};
+
+window.closeTripDarshanModal = function(){
+  document.getElementById('tripDarshanModal').style.display = 'none';
+};
+
+window.saveTripDarshan = async function(){
+  const title      = document.getElementById('tdTitle').value.trim();
+  const route      = document.getElementById('tdRoute').value.trim();
+  const image      = document.getElementById('tdImage').value.trim();
+  const price      = document.getElementById('tdPrice').value.trim();
+  const badge      = document.getElementById('tdBadge').value.trim();
+  const duration   = document.getElementById('tdDuration').value.trim();
+  const distance   = document.getElementById('tdDistance').value.trim();
+  const inclusions = document.getElementById('tdInclusions').value.trim();
+  const bestFor    = document.getElementById('tdBestFor').value.trim();
+  const itinerary  = document.getElementById('tdItinerary').value.trim();
+
+  if(!title || !route || !price){
+    showToast('Please fill in title, route and price');
+    return;
+  }
+
+  const data = { title, route, image, price, badge, duration, distance, inclusions, bestFor, itinerary };
+
+  try{
+    if(window._editingTripDarshanId){
+      await updateDocument('tripDarshan', window._editingTripDarshanId, data);
+      showToast('Package updated');
+    } else {
+      await saveDocument('tripDarshan', { ...data, order: Date.now() });
+      showToast('Package added');
+    }
+    closeTripDarshanModal();
+    refreshAll(false);
+  }catch(e){
+    console.error(e);
+    showToast('⚠ Could not save package: ' + (e.message||'check Firestore rules'));
+  }
+};
+
+window.deleteTripDarshan = async function(id){
+  if(!confirm('Delete this trip darshan package?')) return;
+  await deleteDocument('tripDarshan', id);
+  showToast('Package deleted');
+  refreshAll(false);
+};
+
+// ─────────────────────────────────────────
 // BULK RATE ADJUST
 // ─────────────────────────────────────────
 window._bulkAdjustTarget = null;
@@ -1720,7 +1909,7 @@ window.showPage = function(name, el){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   if(el) el.classList.add('active');
-  const titles = {dashboard:'Dashboard',bookings:'Bookings',routes:'Route Inquiries',roundtrip:'Round Trip Requests',routepricing:'Routes & Pricing',roundtrippricing:'Round Trip Pricing',settings:'Settings'};
+  const titles = {dashboard:'Dashboard',bookings:'Bookings',routes:'Route Inquiries',roundtrip:'Round Trip Requests',routepricing:'Routes & Pricing',roundtrippricing:'Round Trip Pricing',tripdarshan:'Trip Darshan Packages',settings:'Settings'};
   document.getElementById('pageTitle').textContent = titles[name]||name;
   document.getElementById('sidebar').classList.remove('open');
 };
@@ -1735,6 +1924,10 @@ document.getElementById('routeModal').addEventListener('click', function(e){
 
 document.getElementById('rtRateModal').addEventListener('click', function(e){
   if(e.target === this) closeRtRateModal();
+});
+
+document.getElementById('tripDarshanModal').addEventListener('click', function(e){
+  if(e.target === this) closeTripDarshanModal();
 });
 
 // live ticker clock-style refresh of "time ago" feel
