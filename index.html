@@ -2253,6 +2253,113 @@ function initRoundTripAutoSlide() {
 
   if (!rtAutoSlideTimer) rtAutoSlideTimer = setInterval(rtAdvanceSlide, 2500);
 }
+
+// ── DYNAMIC TRIP DARSHAN RENDER ─────────────────────────
+window.renderTripDarshanGrid = function(list) {
+  const grid = document.getElementById('tripDarshanGrid');
+  const wrap = document.getElementById('tripDarshanSliderWrap');
+  if (!grid) return;
+  if (!list || !list.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:var(--mute);padding:40px;">Trip Darshan packages coming soon. Please check back shortly.</div>`;
+    if (wrap) wrap.classList.remove('is-slider');
+    return;
+  }
+  if (wrap) {
+    grid.classList.toggle('rt-slider', list.length > 3);
+    wrap.classList.toggle('is-slider', list.length > 3);
+  }
+  grid.innerHTML = list.map(p => `
+    <a href="tripdarshan.html?id=${encodeURIComponent(p.id)}" class="td-card">
+      <div class="td-img-wrap">
+        ${p.badge ? `<div class="td-badge">${p.badge}</div>` : ''}
+        <img src="${p.image || ''}" alt="${p.title || ''}">
+      </div>
+      <div class="td-body">
+        <h3>${p.title || ''}</h3>
+        <div class="td-route"><i class="fas fa-route"></i>&nbsp; ${p.route || ''}</div>
+        <div class="td-footer">
+          <div class="td-price">₹${p.price || ''}<span>&nbsp;onwards</span></div>
+          <div class="td-arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+    </a>
+  `).join('');
+  initTripDarshanNav();
+  initTripDarshanAutoSlide();
+};
+
+// ── TRIP DARSHAN SLIDER NAV ─────────────────────────
+function scrollTripDarshan(dir) {
+  const grid = document.getElementById('tripDarshanGrid');
+  if (!grid) return;
+  const card = grid.querySelector('.td-card');
+  const gap = parseFloat(getComputedStyle(grid).columnGap || getComputedStyle(grid).gap || '22') || 22;
+  const step = card ? (card.getBoundingClientRect().width + gap) : grid.clientWidth * 0.85;
+  grid.scrollBy({ left: dir * step, behavior: 'smooth' });
+}
+window.scrollTripDarshan = scrollTripDarshan;
+
+function initTripDarshanNav() {
+  const grid = document.getElementById('tripDarshanGrid');
+  const wrap = document.getElementById('tripDarshanSliderWrap');
+  if (!grid || !wrap || grid.dataset.navBound) return;
+  grid.dataset.navBound = '1';
+  const prevBtn = wrap.querySelector('.rt-nav-prev');
+  const nextBtn = wrap.querySelector('.rt-nav-next');
+  const updateNav = () => {
+    const max = grid.scrollWidth - grid.clientWidth - 2;
+    if (prevBtn) prevBtn.disabled = grid.scrollLeft <= 2;
+    if (nextBtn) nextBtn.disabled = grid.scrollLeft >= max;
+  };
+  grid.addEventListener('scroll', updateNav, { passive: true });
+  window.addEventListener('resize', updateNav);
+  updateNav();
+}
+
+// ── TRIP DARSHAN AUTO SLIDE ─────────────────────────
+let tdAutoSlideTimer = null;
+let tdAutoSlidePaused = false;
+let tdAutoSlideResumeTimeout = null;
+
+function tdAdvanceSlide() {
+  if (tdAutoSlidePaused) return;
+  const grid = document.getElementById('tripDarshanGrid');
+  if (!grid) return;
+  const max = grid.scrollWidth - grid.clientWidth - 2;
+  if (max <= 0) return; // nothing to slide
+  if (grid.scrollLeft >= max) {
+    grid.scrollTo({ left: 0, behavior: 'smooth' }); // loop back to start
+  } else {
+    scrollTripDarshan(1);
+  }
+}
+
+function tdPauseAutoSlide() {
+  tdAutoSlidePaused = true;
+  clearTimeout(tdAutoSlideResumeTimeout);
+}
+
+function tdResumeAutoSlideSoon() {
+  clearTimeout(tdAutoSlideResumeTimeout);
+  tdAutoSlideResumeTimeout = setTimeout(() => { tdAutoSlidePaused = false; }, 4000);
+}
+
+function initTripDarshanAutoSlide() {
+  const wrap = document.getElementById('tripDarshanSliderWrap');
+  const grid = document.getElementById('tripDarshanGrid');
+  if (!wrap || !grid || wrap.dataset.autoBound) return;
+  wrap.dataset.autoBound = '1';
+
+  wrap.addEventListener('mouseenter', tdPauseAutoSlide);
+  wrap.addEventListener('mouseleave', () => { tdAutoSlidePaused = false; });
+  wrap.addEventListener('touchstart', tdPauseAutoSlide, { passive: true });
+  wrap.addEventListener('touchend', tdResumeAutoSlideSoon, { passive: true });
+  wrap.querySelectorAll('.rt-nav').forEach(btn => {
+    btn.addEventListener('click', () => { tdPauseAutoSlide(); tdResumeAutoSlideSoon(); });
+  });
+
+  if (!tdAutoSlideTimer) tdAutoSlideTimer = setInterval(tdAdvanceSlide, 2500);
+}
 </script>
 
 <!-- ── OPTIONAL FIREBASE MODULE (loaded separately; core site works even if this fails) ── -->
@@ -2266,6 +2373,10 @@ fetchCollection('routes', 'order', 'asc').then(routes => {
 
 fetchCollection('roundTripRates', 'order', 'asc').then(rates => {
   if (window.renderRoundTripGrid) window.renderRoundTripGrid(rates);
+});
+
+fetchCollection('tripDarshan', 'order', 'asc').then(list => {
+  if (window.renderTripDarshanGrid) window.renderTripDarshanGrid(list);
 });
 </script>
 
