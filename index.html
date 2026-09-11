@@ -1861,6 +1861,19 @@ window.bookRoute = async function(route, sedan, suv) {
     catch(err) { console.error('Firebase error:', err); }
   }
 
+  try {
+    await emailjs.send('service_xmnox9n', 'template_lqoj3yg', {
+      mobile,
+      pickup: 'Route Inquiry',
+      destination: route,
+      date: '',
+      returnDate: '',
+      time: '',
+      trip: `Route Booking — Sedan ₹${sedan} / SUV ₹${suv}`,
+      rentalHours: ''
+    });
+  } catch(err) { console.error('EmailJS error:', err); }
+
   const waMsg =
 `🚖 I WANT TO BOOK CAB
 ━━━━━━━━━━━━━━━━━━━━
@@ -1909,6 +1922,19 @@ window.submitRtWA = async function() {
       await window.saveBookingToFirebase('roundTripRequests', { car, rate, mobile, received: new Date() });
     } catch(err) { console.error('Firebase error:', err); }
   }
+
+  try {
+    await emailjs.send('service_xmnox9n', 'template_lqoj3yg', {
+      mobile,
+      pickup: 'Round Trip Request',
+      destination: car,
+      date: '',
+      returnDate: '',
+      time: '',
+      trip: `Round Trip — ₹${rate}/km`,
+      rentalHours: ''
+    });
+  } catch(err) { console.error('EmailJS error:', err); }
 
   const waMsg =
 `🚖 ROUND TRIP BOOKING
