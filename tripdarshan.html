@@ -131,7 +131,11 @@ section { padding:70px 6%; }
 /* ── TRIP DARSHAN DETAIL ── */
 #tdDetail { background:var(--navy); padding-top:50px; }
 .td-detail-grid { display:grid; grid-template-columns:1.7fr 1fr; gap:44px; align-items:start; }
-@media (max-width:960px) { .td-detail-grid { grid-template-columns:1fr; } }
+@media (max-width:960px) {
+  .td-detail-grid { grid-template-columns:1fr; }
+  .td-detail-side { order:-1; position:static; }
+  .td-detail-main { order:2; }
+}
 
 .td-info-strip { display:flex; flex-wrap:wrap; gap:14px; margin-top:24px; }
 .td-info-item { flex:1 1 180px; display:flex; align-items:center; gap:14px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; }
