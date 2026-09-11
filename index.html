@@ -376,6 +376,9 @@ select.loc-input option { background:var(--navy-2); color:var(--ice); font-size:
 .fare-table td.fare-amt { color:var(--gold); font-weight:700; font-family:'Space Grotesk'; }
 .fare-table td.fare-dist { color:var(--teal); }
 .fare-table td:first-child { color:var(--ice); font-weight:600; }
+.fare-table td a.fare-route-link { color:inherit; text-decoration:none; }
+.fare-table td a.fare-route-link:hover { color:var(--gold); text-decoration:underline; }
+
 
 /* Fare tables become stacked cards on mobile — every column fits, no horizontal sliding */
 /* =========================================
@@ -457,6 +460,26 @@ select.loc-input option { background:var(--navy-2); color:var(--ice); font-size:
   .fare-table td:first-child::before {
     display: none !important;
     content: none !important;
+  }
+
+  /* Rows that link through to a dedicated route page: whole card is tappable,
+     with a chevron on the right of the destination name */
+  .fare-table tbody tr[data-href] {
+    cursor: pointer !important;
+  }
+  .fare-table tbody tr[data-href] td:first-child {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+  }
+  .fare-table tbody tr[data-href] td:first-child::after {
+    content: '\f105' !important;
+    font-family: 'Font Awesome 6 Free' !important;
+    font-weight: 900 !important;
+    font-size: 14px !important;
+    color: var(--gold) !important;
+    flex-shrink: 0 !important;
   }
 
   /* ===== DISTANCE + FARE ROWS ===== */
@@ -1099,18 +1122,18 @@ select.loc-input option { background:var(--navy-2); color:var(--ice); font-size:
       <p>Travel from Ahmedabad to your destination with a convenient one-way taxi. One-way cab booking is ideal when you do not require the vehicle for the return journey. Choose from Sedan, Ertiga or Innova Crysta depending on your travel requirements and group size.</p>
     </div>
     <div class="tag-list">
-      <span class="tag-pill">Ahmedabad to Surat</span>
-      <span class="tag-pill">Ahmedabad to Rajkot</span>
-      <span class="tag-pill">Ahmedabad to Udaipur</span>
+      <a class="tag-pill" href="ahmedabad-to-surat-taxi.html">Ahmedabad to Surat</a>
+      <a class="tag-pill" href="ahmedabad-to-rajkot-taxi.html">Ahmedabad to Rajkot</a>
+      <a class="tag-pill" href="ahmedabad-to-udaipur-taxi.html">Ahmedabad to Udaipur</a>
       <span class="tag-pill">Ahmedabad to Vadodara</span>
-      <span class="tag-pill">Ahmedabad to Gandhinagar</span>
-      <span class="tag-pill">Ahmedabad to Mount Abu</span>
-      <span class="tag-pill">Ahmedabad to Bhuj</span>
-      <span class="tag-pill">Ahmedabad to Dwarka</span>
-      <span class="tag-pill">Ahmedabad to Somnath</span>
-      <span class="tag-pill">Ahmedabad to Mumbai</span>
-      <span class="tag-pill">Ahmedabad to Jaipur</span>
-      <span class="tag-pill">Ahmedabad to Indore</span>
+      <a class="tag-pill" href="ahmedabad-to-gandhinagar-taxi.html">Ahmedabad to Gandhinagar</a>
+      <a class="tag-pill" href="ahmedabad-to-mount-abu-taxi.html">Ahmedabad to Mount Abu</a>
+      <a class="tag-pill" href="ahmedabad-to-bhuj-taxi.html">Ahmedabad to Bhuj</a>
+      <a class="tag-pill" href="ahmedabad-to-dwarka-taxi.html">Ahmedabad to Dwarka</a>
+      <a class="tag-pill" href="ahmedabad-to-somnath-taxi.html">Ahmedabad to Somnath</a>
+      <a class="tag-pill" href="ahmedabad-to-mumbai-taxi.html">Ahmedabad to Mumbai</a>
+      <a class="tag-pill" href="ahmedabad-to-jaipur-taxi.html">Ahmedabad to Jaipur</a>
+      <a class="tag-pill" href="ahmedabad-to-indore-taxi.html">Ahmedabad to Indore</a>
     </div>
     <div class="mini-feature-grid">
       <div class="mini-feature-card">
@@ -1217,17 +1240,17 @@ select.loc-input option { background:var(--navy-2); color:var(--ice); font-size:
           <tr><th>Destination</th><th>Approx. Distance</th><th>Sedan</th><th>Ertiga</th><th>Innova Crysta</th></tr>
         </thead>
         <tbody>
-          <tr><td>Ahmedabad – Surat</td><td class="fare-dist" data-label="Approx. Distance">260 KM</td><td class="fare-amt" data-label="Sedan">₹3,400</td><td class="fare-amt" data-label="Ertiga">₹4,000</td><td class="fare-amt" data-label="Innova Crysta">₹8,500</td></tr>
-          <tr><td>Ahmedabad – Rajkot</td><td class="fare-dist" data-label="Approx. Distance">215 KM</td><td class="fare-amt" data-label="Sedan">₹2,400</td><td class="fare-amt" data-label="Ertiga">₹3,000</td><td class="fare-amt" data-label="Innova Crysta">₹8,600</td></tr>
-          <tr><td>Ahmedabad – Udaipur</td><td class="fare-dist" data-label="Approx. Distance">269 KM</td><td class="fare-amt" data-label="Sedan">₹3,400</td><td class="fare-amt" data-label="Ertiga">₹4,000</td><td class="fare-amt" data-label="Innova Crysta">₹9,500</td></tr>
-          <tr><td>Ahmedabad – Gandhinagar</td><td class="fare-dist" data-label="Approx. Distance">26 KM</td><td class="fare-amt" data-label="Sedan">₹800</td><td class="fare-amt" data-label="Ertiga">₹1,100</td><td class="fare-amt" data-label="Innova Crysta">₹2,200</td></tr>
-          <tr><td>Ahmedabad – Dwarka</td><td class="fare-dist" data-label="Approx. Distance">448 KM</td><td class="fare-amt" data-label="Sedan">₹7,000</td><td class="fare-amt" data-label="Ertiga">₹8,300</td><td class="fare-amt" data-label="Innova Crysta">₹14,920</td></tr>
-          <tr><td>Ahmedabad – Somnath</td><td class="fare-dist" data-label="Approx. Distance">424 KM </td><td class="fare-amt" data-label="Sedan">₹6,784 </td><td class="fare-amt" data-label="Ertiga">₹8,480</td><td class="fare-amt" data-label="Innova Crysta">₹13,960</td></tr>
-          <tr><td>Ahmedabad – Mumbai</td><td class="fare-dist" data-label="Approx. Distance">533 KM</td><td class="fare-amt" data-label="Sedan">₹7,528</td><td class="fare-amt" data-label="Ertiga">₹8,660</td><td class="fare-amt" data-label="Innova Crysta">₹18,500</td></tr>
-          <tr><td>Ahmedabad – Mount Abu</td><td class="fare-dist" data-label="Approx. Distance">229 KM</td><td class="fare-amt" data-label="Sedan">₹3,664</td><td class="fare-amt" data-label="Ertiga">₹4,580</td><td class="fare-amt" data-label="Innova Crysta">₹9,160</td></tr>
-          <tr><td>Ahmedabad – Jaipur</td><td class="fare-dist" data-label="Approx. Distance">659 KM</td><td class="fare-amt" data-label="Sedan">₹11,862</td><td class="fare-amt" data-label="Ertiga">₹16,475</td><td class="fare-amt" data-label="Innova Crysta">₹26,360</td></tr>
-          <tr><td>Ahmedabad – Bhuj</td><td class="fare-dist" data-label="Approx. Distance">334 KM</td><td class="fare-amt" data-label="Sedan">₹4,500</td><td class ="fare-amt" data-label ="Ertiga">₹5,580 </td><td class="fare-amt" data-label="Innova Crysta">₹13,360</td></tr>
-          <tr><td>Ahmedabad – Indore </td><td class="fare-dist" data-label="Approx. Distance"> 388 KM </td><td class="fare-amt" data-label="Sedan">₹6,208</td><td class="fare-amt" data-label="Ertiga">₹7,760</td><td class="fare-amt" data-label="Innova Crysta">₹15,520</td></tr>
+          <tr data-href="ahmedabad-to-surat-taxi.html"><td>Ahmedabad &ndash; Surat</a></td><td class="fare-dist" data-label="Approx. Distance">260 KM</td><td class="fare-amt" data-label="Sedan">₹3,400</td><td class="fare-amt" data-label="Ertiga">₹4,000</td><td class="fare-amt" data-label="Innova Crysta">₹8,500</td></tr>
+          <tr data-href="ahmedabad-to-rajkot-taxi.html"><td>Ahmedabad &ndash; Rajkot</a></td><td class="fare-dist" data-label="Approx. Distance">215 KM</td><td class="fare-amt" data-label="Sedan">₹2,400</td><td class="fare-amt" data-label="Ertiga">₹3,000</td><td class="fare-amt" data-label="Innova Crysta">₹8,600</td></tr>
+          <tr data-href="ahmedabad-to-udaipur-taxi.html"><td>Ahmedabad &ndash; Udaipur</a></td><td class="fare-dist" data-label="Approx. Distance">269 KM</td><td class="fare-amt" data-label="Sedan">₹3,400</td><td class="fare-amt" data-label="Ertiga">₹4,000</td><td class="fare-amt" data-label="Innova Crysta">₹9,500</td></tr>
+          <tr data-href="ahmedabad-to-gandhinagar-taxi.html"><td>Ahmedabad &ndash; Gandhinagar</a></td><td class="fare-dist" data-label="Approx. Distance">26 KM</td><td class="fare-amt" data-label="Sedan">₹800</td><td class="fare-amt" data-label="Ertiga">₹1,100</td><td class="fare-amt" data-label="Innova Crysta">₹2,200</td></tr>
+          <tr data-href="ahmedabad-to-dwarka-taxi.html"><td>Ahmedabad &ndash; Dwarka</a></td><td class="fare-dist" data-label="Approx. Distance">448 KM</td><td class="fare-amt" data-label="Sedan">₹7,000</td><td class="fare-amt" data-label="Ertiga">₹8,300</td><td class="fare-amt" data-label="Innova Crysta">₹14,920</td></tr>
+          <tr data-href="ahmedabad-to-somnath-taxi.html"><td>Ahmedabad &ndash; Somnath</a></td><td class="fare-dist" data-label="Approx. Distance">424 KM </td><td class="fare-amt" data-label="Sedan">₹6,784 </td><td class="fare-amt" data-label="Ertiga">₹8,480</td><td class="fare-amt" data-label="Innova Crysta">₹13,960</td></tr>
+          <tr data-href="ahmedabad-to-mumbai-taxi.html"><td>Ahmedabad &ndash; Mumbai</a></td><td class="fare-dist" data-label="Approx. Distance">533 KM</td><td class="fare-amt" data-label="Sedan">₹7,528</td><td class="fare-amt" data-label="Ertiga">₹8,660</td><td class="fare-amt" data-label="Innova Crysta">₹18,500</td></tr>
+          <tr data-href="ahmedabad-to-mount-abu-taxi.html"><td>Ahmedabad &ndash; Mount Abu</a></td><td class="fare-dist" data-label="Approx. Distance">229 KM</td><td class="fare-amt" data-label="Sedan">₹3,664</td><td class="fare-amt" data-label="Ertiga">₹4,580</td><td class="fare-amt" data-label="Innova Crysta">₹9,160</td></tr>
+          <tr data-href="ahmedabad-to-jaipur-taxi.html"><td>Ahmedabad &ndash; Jaipur</a></td><td class="fare-dist" data-label="Approx. Distance">659 KM</td><td class="fare-amt" data-label="Sedan">₹11,862</td><td class="fare-amt" data-label="Ertiga">₹16,475</td><td class="fare-amt" data-label="Innova Crysta">₹26,360</td></tr>
+          <tr data-href="ahmedabad-to-bhuj-taxi.html"><td>Ahmedabad &ndash; Bhuj</a></td><td class="fare-dist" data-label="Approx. Distance">334 KM</td><td class="fare-amt" data-label="Sedan">₹4,500</td><td class ="fare-amt" data-label ="Ertiga">₹5,580 </td><td class="fare-amt" data-label="Innova Crysta">₹13,360</td></tr>
+          <tr data-href="ahmedabad-to-indore-taxi.html"><td>Ahmedabad &ndash; Indore</a></td><td class="fare-dist" data-label="Approx. Distance"> 388 KM </td><td class="fare-amt" data-label="Sedan">₹6,208</td><td class="fare-amt" data-label="Ertiga">₹7,760</td><td class="fare-amt" data-label="Innova Crysta">₹15,520</td></tr>
         </tbody>
       </table>
     </div>
@@ -2073,6 +2096,14 @@ window.renderRoutesGrid = function(routes) {
     </div>
   `).join('');
 };
+
+// ── FARE TABLE ROWS → TAP ANYWHERE TO OPEN ROUTE PAGE ──
+document.querySelectorAll('.fare-table tbody tr[data-href]').forEach(function(row) {
+  row.addEventListener('click', function(e) {
+    if (e.target.closest('a')) return; // let the link's own click behave normally
+    window.location.href = row.getAttribute('data-href');
+  });
+});
 
 // ── FAQ ACCORDION ─────────────────────────────────────
 window.toggleFaq = function(btn) {
