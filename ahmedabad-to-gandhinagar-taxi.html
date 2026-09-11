@@ -276,6 +276,10 @@ section { padding:70px 6%; }
 .qm-submit:disabled { opacity:.6; cursor:not-allowed; transform:none; }
 
 </style>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function(){ emailjs.init("shZzGfL3Tpe1cy09F"); })();
+</script>
 </head>
 <body>
 
@@ -658,6 +662,20 @@ section { padding:70px 6%; }
 <script type="module">
 import { saveDocument } from './firebase-config.js';
 
+function toDMY(isoDate) {
+  if (!isoDate) return '';
+  const [y, m, d] = isoDate.split('-');
+  return `${d}/${m}/${y}`;
+}
+function to12Hour(time24) {
+  if (!time24) return '';
+  let [h, m] = time24.split(':').map(Number);
+  const period = h >= 12 ? 'PM' : 'AM';
+  h = h % 12;
+  if (h === 0) h = 12;
+  return `${h}:${String(m).padStart(2,'0')} ${period}`;
+}
+
 function showSuccessModal(message) {
   const modal = document.getElementById('successModal');
   const msgEl = document.getElementById('successMessage');
@@ -715,10 +733,37 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
     await saveDocument('bookings', { name, mobile, pickup, destination:dest, date, time, car:'Not specified', passenger:'Not specified', trip:'Ahmedabad to Gandhinagar - One Way', received:new Date() });
   } catch(err) { console.error('Firebase save error:', err); }
 
+  try {
+    await emailjs.send('service_xmnox9n', 'template_lqoj3yg', {
+      mobile, pickup, destination: dest,
+      date: toDMY(date), returnDate: '', time: to12Hour(time),
+      trip: `Ahmedabad to Gandhinagar - One Way (${name})`,
+      rentalHours: ''
+    });
+  } catch(err) { console.error('EmailJS error:', err); }
+
+  const qWaMsg =
+`━━━━━━━━━━━━━━━━━━━━━━━━━
+🚖 I WANT TO BOOK CAB
+━━━━━━━━━━━━━━━━━━━━━━━━━
+▪️ Name : ${name}
+▪️ Contact Number : ${mobile}
+▪️ Pickup Location : ${pickup}
+▪️ Destination : ${dest}
+▪️ Pickup Date : ${date}
+▪️ Pickup Time : ${time}
+▪️ Trip Type : One Way
+━━━━━━━━━━━━━━━━━━━━━━━━━`;
+  const qWaUrl = 'https://wa.me/919727729334?text=' + encodeURIComponent(qWaMsg);
+
   closeQuoteModal();
   setTimeout(() => {
-    showSuccessModal(`Your quote request has been received successfully.<br><br>Our team will contact you shortly on <strong style="color:var(--gold)">${mobile}</strong> with pricing and availability for your Ahmedabad to Gandhinagar trip.`);
+    showSuccessModal(`Your quote request has been received successfully.<br><br>Our team will contact you shortly on <strong style="color:var(--gold)">${mobile}</strong> with pricing and availability for your Ahmedabad to Gandhinagar trip. Redirecting you to WhatsApp&hellip;`);
   }, 320);
+
+  setTimeout(() => {
+    window.open(qWaUrl, '_blank');
+  }, 1400);
 
   btn.disabled = false;
   btn.innerHTML = '<i class="fab fa-whatsapp"></i> Send Booking Request';
@@ -753,9 +798,35 @@ if (heroBookForm) {
       await saveDocument('bookings', { name:'Not specified', mobile, pickup:'Ahmedabad', destination:'Gandhinagar', date, time, car:'Not specified', passenger:'Not specified', trip:'Ahmedabad to Gandhinagar - One Way', received:new Date() });
     } catch(err) { console.error('Firebase save error:', err); }
 
+    try {
+      await emailjs.send('service_xmnox9n', 'template_lqoj3yg', {
+        mobile, pickup: 'Ahmedabad', destination: 'Gandhinagar',
+        date: toDMY(date), returnDate: '', time: to12Hour(time),
+        trip: 'Ahmedabad to Gandhinagar - One Way',
+        rentalHours: ''
+      });
+    } catch(err) { console.error('EmailJS error:', err); }
+
+    const hWaMsg =
+`━━━━━━━━━━━━━━━━━━━━━━━━━
+🚖 I WANT TO BOOK CAB
+━━━━━━━━━━━━━━━━━━━━━━━━━
+▪️ Contact Number : ${mobile}
+▪️ Pickup Location : Ahmedabad
+▪️ Destination : Gandhinagar
+▪️ Pickup Date : ${date}
+▪️ Pickup Time : ${time}
+▪️ Trip Type : One Way
+━━━━━━━━━━━━━━━━━━━━━━━━━`;
+    const hWaUrl = 'https://wa.me/919727729334?text=' + encodeURIComponent(hWaMsg);
+
     setTimeout(() => {
-      showSuccessModal(`Your booking request has been received successfully.<br><br>Our team will contact you shortly on <strong style="color:var(--gold)">${mobile}</strong> with pricing and availability for your Ahmedabad to Gandhinagar trip.`);
+      showSuccessModal(`Your booking request has been received successfully.<br><br>Our team will contact you shortly on <strong style="color:var(--gold)">${mobile}</strong> with pricing and availability for your Ahmedabad to Gandhinagar trip. Redirecting you to WhatsApp&hellip;`);
     }, 150);
+
+    setTimeout(() => {
+      window.open(hWaUrl, '_blank');
+    }, 1300);
 
     heroBookForm.reset();
     heroDateEl.value = heroNow.toISOString().slice(0,10);
