@@ -89,32 +89,25 @@ header.scrolled { background:rgba(6,15,34,0.95); border-bottom-color:var(--line-
 }
 
 /* PAGE HERO */
-.page-hero { padding:150px 6% 60px; position:relative; overflow:hidden;
-  background:
-    radial-gradient(ellipse 80% 60% at 75% 30%, rgba(245,166,35,0.08), transparent),
-    radial-gradient(ellipse 60% 60% at 10% 90%, rgba(61,220,151,0.05), transparent),
-    linear-gradient(160deg, #060f22 0%, #0b1a35 55%, #0d2040 100%);
+.page-hero { padding:150px 6% 70px; position:relative; overflow:hidden;
+  background: linear-gradient(160deg, #060f22 0%, #0b1a35 55%, #0d2040 100%);
 }
-.page-hero::before { content:''; position:absolute; inset:0;
-  background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size:60px 60px;
-  mask-image:radial-gradient(ellipse 80% 70% at 50% 30%, black, transparent);
+.page-hero-bg { position:absolute; inset:0; background-size:cover; background-position:center; z-index:0; opacity:0; transition:opacity .6s ease; }
+.page-hero-bg.is-visible { opacity:1; }
+.page-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background: linear-gradient(180deg, rgba(6,15,34,0.35) 0%, rgba(6,15,34,0.68) 60%, rgba(6,15,34,0.94) 100%);
 }
-.page-hero-inner { max-width:680px; }
-.page-hero-row { position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap; }
-.page-hero-cta { flex-shrink:0; }
-.page-hero-cta .contact-btn { font-size:14.5px; padding:13px 24px; }
+.page-hero-inner { max-width:680px; position:relative; z-index:2; }
+.page-hero-row { position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap; }
 @media (max-width:860px) {
   .page-hero-row { flex-direction:column; align-items:flex-start; }
-  .page-hero-cta { width:100%; }
-  .page-hero-cta .contact-btn { width:100%; justify-content:center; }
 }
 .eyebrow { display:inline-flex; align-items:center; gap:8px; background:var(--gold-dim); border:1px solid rgba(245,166,35,0.25); border-radius:30px; padding:6px 16px; font-size:12px; font-weight:700; letter-spacing:1.5px; color:var(--gold); text-transform:uppercase; margin-bottom:22px; }
 .eyebrow .dot { width:6px; height:6px; border-radius:50%; background:var(--gold); animation:pulse 1.8s infinite; }
 @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.3;} }
-.page-hero h1 { font-family:'Space Grotesk'; font-size:clamp(28px,4.2vw,46px); font-weight:700; line-height:1.15; letter-spacing:-1px; margin-bottom:14px; }
+.page-hero h1 { font-family:'Space Grotesk'; font-size:clamp(28px,4.2vw,46px); font-weight:700; line-height:1.15; letter-spacing:-1px; margin-bottom:14px; color:#fff; text-shadow:0 2px 20px rgba(0,0,0,0.4); }
 .page-hero h1 em { font-style:normal; color:var(--gold); }
-.page-hero p { font-size:clamp(14px,1.5vw,16px); color:var(--mute); line-height:1.7; max-width:560px; }
+.page-hero p { font-size:clamp(14px,1.5vw,16px); color:rgba(238,242,248,0.82); line-height:1.7; max-width:560px; }
 .breadcrumb { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--mute); margin-top:22px; flex-wrap:wrap; }
 .breadcrumb a { color:var(--mute); text-decoration:none; transition:var(--transition); }
 .breadcrumb a:hover { color:var(--gold); }
@@ -130,10 +123,6 @@ section { padding:70px 6%; }
 #tdDetail { background:var(--navy); padding-top:50px; }
 .td-detail-grid { display:grid; grid-template-columns:1.7fr 1fr; gap:44px; align-items:start; }
 @media (max-width:960px) { .td-detail-grid { grid-template-columns:1fr; } }
-
-.td-hero-img-wrap { position:relative; border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:16/9; background:var(--navy-3); border:1px solid var(--line); }
-.td-hero-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
-.td-hero-badge { position:absolute; bottom:16px; right:16px; background:var(--gold); color:#1a0f00; font-size:12px; font-weight:800; letter-spacing:.5px; padding:6px 16px; border-radius:20px; font-family:'Space Grotesk'; box-shadow:0 4px 12px rgba(245,166,35,0.4); }
 
 .td-info-strip { display:flex; flex-wrap:wrap; gap:14px; margin-top:24px; }
 .td-info-item { flex:1 1 180px; display:flex; align-items:center; gap:14px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; }
@@ -266,6 +255,7 @@ section { padding:70px 6%; }
 
 <!-- PAGE HERO -->
 <section class="page-hero">
+  <div class="page-hero-bg" id="tdHeroBg"></div>
   <div class="page-hero-row">
     <div class="page-hero-inner">
       <div class="eyebrow"><span class="dot"></span>Trip Darshan Package</div>
@@ -276,9 +266,6 @@ section { padding:70px 6%; }
         <a href="index.html#tripdarshan">Trip Darshan</a><i class="fas fa-chevron-right"></i>
         <span id="tdBreadcrumbTitle">Package</span>
       </div>
-    </div>
-    <div class="page-hero-cta">
-      <a href="index.html#tripdarshan" class="contact-btn contact-btn-outline"><i class="fas fa-arrow-left"></i> All Packages</a>
     </div>
   </div>
 </section>
@@ -294,11 +281,6 @@ section { padding:70px 6%; }
   <div id="tdContent" style="display:none;">
     <div class="td-detail-grid">
       <div class="td-detail-main">
-        <div class="td-hero-img-wrap">
-          <img id="tdImage" src="" alt="">
-          <div class="td-hero-badge" id="tdHeroBadge" style="display:none;"></div>
-        </div>
-
         <div class="td-info-strip">
           <div class="td-info-item"><i class="fas fa-route"></i><div><span>Route</span><strong id="tdInfoRoute">—</strong></div></div>
           <div class="td-info-item"><i class="fas fa-calendar-days"></i><div><span>Duration</span><strong id="tdInfoDuration">—</strong></div></div>
@@ -458,12 +440,13 @@ function renderPackage(pkg) {
     : 'An all-inclusive Trip Darshan package by Moksh Travel.';
   document.getElementById('tdBreadcrumbTitle').textContent = pkg.title || 'Package';
 
-  const img = document.getElementById('tdImage');
-  img.src = pkg.image || '';
-  img.alt = pkg.title || 'Trip Darshan Package';
-
-  const badgeEl = document.getElementById('tdHeroBadge');
-  if (pkg.badge) { badgeEl.textContent = pkg.badge; badgeEl.style.display = 'block'; }
+  const heroBg = document.getElementById('tdHeroBg');
+  if (pkg.image) {
+    heroBg.style.backgroundImage = `url('${pkg.image}')`;
+    heroBg.classList.add('is-visible');
+  } else {
+    heroBg.classList.remove('is-visible');
+  }
 
   document.getElementById('tdInfoRoute').textContent = pkg.route || '—';
   document.getElementById('tdInfoDuration').textContent = pkg.duration || pkg.badge || '—';
