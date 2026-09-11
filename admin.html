@@ -590,6 +590,9 @@ tr.data-row:hover td{ background:rgba(255,255,255,0.018); }
 <div class="nav-item" onclick="showPage('tripdarshan',this)">
   <i class="fas fa-map-location-dot"></i> Trip Darshan <span class="nav-count" id="navCountTripDarshan">0</span>
 </div>
+<div class="nav-item" onclick="showPage('tripdarshanbookings',this)">
+  <i class="fas fa-calendar-check"></i> Trip Darshan Bookings <span class="nav-count" id="navCountTripDarshanBookings">0</span>
+</div>
 <div class="nav-item" onclick="showPage('settings',this)">
       <i class="fas fa-gear"></i> Settings
     </div>
@@ -830,6 +833,27 @@ tr.data-row:hover td{ background:rgba(255,255,255,0.018); }
       <table>
         <thead><tr><th>Title</th><th>Route</th><th>Price</th><th>Duration</th><th>Distance</th><th>Action</th></tr></thead>
         <tbody id="tdBody"><tr class="loading-row"><td colspan="6">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+    <!-- TRIP DARSHAN BOOKINGS (customer enquiries from tripdarshan.html) -->
+<div class="page" id="page-tripdarshanbookings">
+  <div class="search-bar">
+    <input type="text" id="tdbSearch" placeholder="Search package or mobile…" oninput="renderTripDarshanBookings()">
+    <button class="btn-sm btn-danger-outline" onclick="clearAll('tripdarshanbookings')"><i class="fas fa-trash"></i> Clear All</button>
+    <button class="btn-sm btn-amber" onclick="exportCSV('tripdarshanbookings')"><i class="fas fa-download"></i> Export</button>
+  </div>
+  <div class="table-card">
+    <div class="table-header">
+      <h3><i class="fas fa-calendar-check"></i>Trip Darshan Bookings</h3>
+      <span class="settings-val" id="tdbCount"></span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Package</th><th>Route</th><th>Price</th><th>Mobile</th><th>Pickup Date &amp; Time</th><th>Received</th><th>Action</th></tr></thead>
+        <tbody id="tdbBody"><tr class="loading-row"><td colspan="7">Loading…</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -1081,6 +1105,7 @@ let roundCache    = [];
 let routePricingCache = [];
 let roundTripRatesCache = [];
 let tripDarshanCache = [];
+let tripDarshanBookingsCache = [];
 let isFetching    = false;
 
 // ─────────────────────────────────────────
@@ -1148,7 +1173,7 @@ document.getElementById('loginPass').addEventListener('keydown', e=>{
 
 // Sidebar nav order: 1=brand, 2=dashboard, 3=bookings, 4=routes, 5=roundtrip, 6=routepricing, 7=settings
 window.goToPage = function(name){
-  const idx = { dashboard:2, bookings:3, routes:4, roundtrip:5, routepricing:6, roundtrippricing:7, settings:8 };
+  const idx = { dashboard:2, bookings:3, routes:4, roundtrip:5, routepricing:6, roundtrippricing:7, tripdarshan:8, tripdarshanbookings:9, settings:10 };
   const el = document.querySelector(`.nav-item:nth-child(${idx[name]})`);
   if(el) el.click();
 };
@@ -1206,13 +1231,14 @@ window.refreshAll = async function(showSpinner){
   if(showSpinner) btn.classList.add('spinning');
 
   try{
-    const [bookings, routes, round, routePricing, roundTripRates, tripDarshan] = await Promise.all([
+    const [bookings, routes, round, routePricing, roundTripRates, tripDarshan, tripDarshanBookings] = await Promise.all([
   fetchCollection('bookings'),
   fetchCollection('routeInquiries'),
   fetchCollection('roundTripRequests'),
   fetchCollection('routes', 'order', 'asc'),
   fetchCollection('roundTripRates', 'order', 'asc'),
-  fetchCollection('tripDarshan', 'order', 'asc')
+  fetchCollection('tripDarshan', 'order', 'asc'),
+  fetchCollection('tripDarshanBookings')
 ]);
 bookingsCache = bookings;
 routesCache   = routes;
@@ -1220,6 +1246,7 @@ roundCache    = round;
 routePricingCache = routePricing;
 roundTripRatesCache = roundTripRates;
 tripDarshanCache = tripDarshan;
+tripDarshanBookingsCache = tripDarshanBookings;
 
 updateStats();
 updateTicker();
@@ -1231,6 +1258,7 @@ renderRound();
 renderRoutePricing();
 renderRoundTripPricing();
 renderTripDarshan();
+renderTripDarshanBookings();
   }catch(e){
     console.error(e);
     showToast('⚠ Could not load data: ' + (e.message||'check Firestore rules'));
@@ -1261,6 +1289,12 @@ window.deleteRound = async function(id){
   showToast('Round trip request deleted');
   refreshAll(false);
 };
+window.deleteTripDarshanBooking = async function(id){
+  if(!confirm('Delete this Trip Darshan booking?')) return;
+  await deleteDocument('tripDarshanBookings', id);
+  showToast('Trip Darshan booking deleted');
+  refreshAll(false);
+};
 
 window.clearAll = async function(type){
   if(!confirm('This will permanently delete the selected records. Continue?')) return;
@@ -1268,6 +1302,7 @@ window.clearAll = async function(type){
   if(type==='bookings'||type==='all')   jobs.push(...bookingsCache.map(b=>deleteDocument('bookings', b.id)));
   if(type==='routes'  ||type==='all')   jobs.push(...routesCache.map(r=>deleteDocument('routeInquiries', r.id)));
   if(type==='roundtrip'||type==='all')  jobs.push(...roundCache.map(r=>deleteDocument('roundTripRequests', r.id)));
+  if(type==='tripdarshanbookings'||type==='all') jobs.push(...tripDarshanBookingsCache.map(r=>deleteDocument('tripDarshanBookings', r.id)));
   await Promise.all(jobs);
   showToast('Records cleared');
   refreshAll(false);
@@ -1287,6 +1322,7 @@ function updateStats(){
   document.getElementById('navCountRoutePricing').textContent = routePricingCache.length;
 document.getElementById('navCountRoundTripPricing').textContent = roundTripRatesCache.length;
 document.getElementById('navCountTripDarshan').textContent = tripDarshanCache.length;
+document.getElementById('navCountTripDarshanBookings').textContent = tripDarshanBookingsCache.length;
 }
 
 function updateTicker(){
@@ -1397,6 +1433,32 @@ window.renderRound = function(){
       <td><a class="call-link" href="tel:${esc(r.mobile)}">${esc(r.mobile)}</a></td>
       <td style="color:var(--mute);font-size:12px">${fmtDate(r.received)}</td>
       <td><button class="del-btn" onclick="deleteRound('${r.id}')"><i class="fas fa-trash"></i></button></td>
+    </tr>
+  `).join('');
+};
+
+// ─────────────────────────────────────────
+// RENDER: TRIP DARSHAN BOOKINGS
+// ─────────────────────────────────────────
+window.renderTripDarshanBookings = function(){
+  const q = (document.getElementById('tdbSearch').value||'').toLowerCase();
+  let data = tripDarshanBookingsCache;
+  if(q) data = data.filter(r => ((r.package||'')+(r.mobile||'')+(r.route||'')).toLowerCase().includes(q));
+  document.getElementById('tdbCount').textContent = data.length + ' record(s)';
+  const tbody = document.getElementById('tdbBody');
+  if(!data.length){
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="7"><div class="empty-icon">🏔️</div>No Trip Darshan bookings yet</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map(r => `
+    <tr class="data-row">
+      <td><strong>${esc(r.package)}</strong></td>
+      <td>${esc(r.route)}</td>
+      <td>₹${esc(r.price)}</td>
+      <td><a class="call-link" href="tel:${esc(r.mobile)}">${esc(r.mobile)}</a></td>
+      <td style="white-space:nowrap">${esc(r.date)}<br><small style="color:var(--mute)">${esc(r.time||'')}</small></td>
+      <td style="color:var(--mute);font-size:12px">${fmtDate(r.received)}</td>
+      <td><button class="del-btn" onclick="deleteTripDarshanBooking('${r.id}')"><i class="fas fa-trash"></i></button></td>
     </tr>
   `).join('');
 };
@@ -1869,6 +1931,11 @@ window.exportCSV = function(type){
     rows.push(['Vehicle','Rate/KM','Mobile','Received']);
     roundCache.forEach(r => rows.push([r.car,r.rate,r.mobile,fmtDate(r.received)]));
   }
+  if(type==='tripdarshanbookings'||type==='all'){
+    rows.push([]); rows.push(['--- TRIP DARSHAN BOOKINGS ---']);
+    rows.push(['Package','Route','Price','Mobile','Date','Time','Received']);
+    tripDarshanBookingsCache.forEach(r => rows.push([r.package,r.route,'₹'+r.price,r.mobile,r.date,r.time,fmtDate(r.received)]));
+  }
   const csv = rows.map(r => r.map(c => `"${(c||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob = new Blob([csv], {type:'text/csv'});
   const a = document.createElement('a');
@@ -1909,7 +1976,7 @@ window.showPage = function(name, el){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   if(el) el.classList.add('active');
-  const titles = {dashboard:'Dashboard',bookings:'Bookings',routes:'Route Inquiries',roundtrip:'Round Trip Requests',routepricing:'Routes & Pricing',roundtrippricing:'Round Trip Pricing',tripdarshan:'Trip Darshan Packages',settings:'Settings'};
+  const titles = {dashboard:'Dashboard',bookings:'Bookings',routes:'Route Inquiries',roundtrip:'Round Trip Requests',routepricing:'Routes & Pricing',roundtrippricing:'Round Trip Pricing',tripdarshan:'Trip Darshan Packages',tripdarshanbookings:'Trip Darshan Bookings',settings:'Settings'};
   document.getElementById('pageTitle').textContent = titles[name]||name;
   document.getElementById('sidebar').classList.remove('open');
 };
