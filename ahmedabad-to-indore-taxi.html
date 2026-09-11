@@ -106,6 +106,13 @@ header.scrolled { background:rgba(255,255,255,0.92); border-bottom-color:var(--l
 .page-hero-cta { flex-shrink:0; display:flex; flex-direction:column; gap:10px; }
 .page-hero-cta .contact-btn { font-size:15px; padding:15px 30px; justify-content:center; }
 @media (max-width:860px) { .page-hero-row { flex-direction:column; align-items:flex-start; } .page-hero-cta { width:100%; } .page-hero-cta .contact-btn { width:100%; } }
+.hero-book-card { width:340px; max-width:100%; background:linear-gradient(145deg, #ffffff 0%, #fdfaf3 100%); border:1px solid var(--line-2); border-radius:var(--radius-lg); padding:26px 24px 20px; box-shadow:0 20px 50px rgba(0,0,0,0.12); }
+.hero-book-head { display:flex; align-items:center; gap:9px; font-family:'Space Grotesk'; font-weight:700; font-size:15px; color:var(--ice); margin-bottom:16px; }
+.hero-book-head i { color:var(--gold); }
+#heroBookForm .form-group { margin-bottom:14px; }
+.hero-book-note { font-size:11px; color:var(--mute); margin-top:10px; text-align:center; line-height:1.5; }
+.hero-call-link { margin-top:12px; width:100%; justify-content:center; }
+@media (max-width:860px) { .hero-book-card { width:100%; } }
 .eyebrow { display:inline-flex; align-items:center; gap:8px; background:var(--gold-dim); border:1px solid rgba(245,166,35,0.25); border-radius:30px; padding:6px 16px; font-size:12px; font-weight:700; letter-spacing:1.5px; color:var(--gold); text-transform:uppercase; margin-bottom:22px; }
 .eyebrow .dot { width:6px; height:6px; border-radius:50%; background:var(--gold); animation:pulse 1.8s infinite; }
 @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.3;} }
@@ -303,7 +310,7 @@ section { padding:70px 6%; }
     <div class="page-hero-inner">
       <div class="eyebrow"><span class="dot"></span>One-Way Taxi Service</div>
       <h1>Ahmedabad to <em>Indore</em> Taxi Service</h1>
-      <p>Looking for a comfortable and reliable Ahmedabad to Indore taxi? Moksh Travel provides convenient outstation cab services from Ahmedabad to Indore &mdash; Madhya Pradesh's largest city and a well-known food destination &mdash; for business trips, family travel, personal journeys and one-way transfers. Choose from Sedan, Ertiga and Innova Crysta according to your group size, luggage and comfort preference.</p>
+      <p>Comfortable, reliable Ahmedabad to Indore taxi &mdash; Madhya Pradesh's largest city and a well-known food destination &mdash; for one-way, business or family trips in Sedan, Ertiga or Innova Crysta.</p>
       <div class="breadcrumb">
         <a href="index.html">Home</a><i class="fas fa-chevron-right"></i>
         <a href="index.html#routes">One Way Taxi</a><i class="fas fa-chevron-right"></i>
@@ -311,8 +318,28 @@ section { padding:70px 6%; }
       </div>
     </div>
     <div class="page-hero-cta">
-      <a href="javascript:void(0)" class="contact-btn contact-btn-gold" onclick="openQuoteModal()"><i class="fas fa-calendar-check"></i> Book This Taxi</a>
-      <a href="tel:+919727729334" class="contact-btn contact-btn-outline"><i class="fas fa-phone"></i> Call Now</a>
+      <form id="heroBookForm" class="hero-book-card">
+        <div class="hero-book-head"><i class="fas fa-calendar-check"></i> Book Ahmedabad to Indore Taxi</div>
+        <div class="qm-row">
+          <div class="form-group">
+            <label class="form-label">Pickup Date</label>
+            <input class="form-input" type="date" id="heroDate" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Pickup Time</label>
+            <input class="form-input" type="time" id="heroTime" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mobile Number</label>
+          <input class="form-input" type="tel" id="heroMobile" placeholder="10-digit mobile number" pattern="[0-9]{0,10}" inputmode="numeric" required>
+        </div>
+        <button type="submit" class="qm-submit" id="heroBookBtn">
+          <i class="fab fa-whatsapp"></i> Book Now
+        </button>
+        <div class="hero-book-note">We'll call / WhatsApp you shortly to confirm availability &amp; final fare.</div>
+      </form>
+      <a href="tel:+919727729334" class="contact-btn contact-btn-outline hero-call-link"><i class="fas fa-phone"></i> Call Now</a>
     </div>
   </div>
 </section>
@@ -696,6 +723,47 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
   btn.disabled = false;
   btn.innerHTML = '<i class="fab fa-whatsapp"></i> Send Booking Request';
 });
+
+// ── HERO BOOKING FORM (pickup date / time / mobile) ──
+const heroBookForm = document.getElementById('heroBookForm');
+if (heroBookForm) {
+  const heroDateEl = document.getElementById('heroDate');
+  const heroTimeEl = document.getElementById('heroTime');
+  const heroNow = new Date();
+  heroDateEl.min = heroNow.toISOString().slice(0,10);
+  heroDateEl.value = heroNow.toISOString().slice(0,10);
+  heroTimeEl.value = String(heroNow.getHours()).padStart(2,'0') + ':' + String(heroNow.getMinutes()).padStart(2,'0');
+
+  heroBookForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const date   = heroDateEl.value;
+    const time   = heroTimeEl.value;
+    const mobile = document.getElementById('heroMobile').value.trim();
+
+    if(!mobile || mobile.length !== 10 || isNaN(mobile)){
+      showToast('Please enter a valid 10-digit mobile number', true); return;
+    }
+
+    const heroBtn = document.getElementById('heroBookBtn');
+    heroBtn.disabled = true;
+    const heroOriginalBtnHtml = heroBtn.innerHTML;
+    heroBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending&hellip;';
+
+    try {
+      await saveDocument('bookings', { name:'Not specified', mobile, pickup:'Ahmedabad', destination:'Indore', date, time, car:'Not specified', passenger:'Not specified', trip:'Ahmedabad to Indore - One Way', received:new Date() });
+    } catch(err) { console.error('Firebase save error:', err); }
+
+    setTimeout(() => {
+      showSuccessModal(`Your booking request has been received successfully.<br><br>Our team will contact you shortly on <strong style="color:var(--gold)">${mobile}</strong> with pricing and availability for your Ahmedabad to Indore trip.`);
+    }, 150);
+
+    heroBookForm.reset();
+    heroDateEl.value = heroNow.toISOString().slice(0,10);
+    heroTimeEl.value = String(heroNow.getHours()).padStart(2,'0') + ':' + String(heroNow.getMinutes()).padStart(2,'0');
+    heroBtn.disabled = false;
+    heroBtn.innerHTML = heroOriginalBtnHtml;
+  });
+}
 
 function showToast(msg, isError){
   const t = document.getElementById('toast');
